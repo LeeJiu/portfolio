@@ -5,13 +5,13 @@ class gameMap;
 
 enum PLAYERSTATE
 {
-	IDLE,
-	RUN,
-	ATTACK,
-	SKILL1,
-	SKILL2,
-	DAMAGE,
-	DEAD
+	P_IDLE,
+	P_RUN,
+	P_ATTACK,
+	P_SKILL1,
+	P_SKILL2,
+	P_DAMAGE,
+	P_DEAD
 };
 
 struct tagPlayer

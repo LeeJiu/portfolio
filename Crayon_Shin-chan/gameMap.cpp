@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "gameMap.h"
 #include "player.h"
+#include "enemyManager.h"
 
 
 gameMap::gameMap()
@@ -16,7 +17,7 @@ HRESULT gameMap::init()
 {
 	_map = IMAGEMANAGER->addImage("stage1", "image/background/stage1.bmp", 4000, 480, false, false);
 
-	_moveX = 0;
+	_moveX = _settingCnt = 0;
 
 	return S_OK;
 }
@@ -27,12 +28,20 @@ void gameMap::release()
 
 void gameMap::update()
 {
+	_settingCnt++;
+
 	//플레이어가 오른쪽 끝 화면에 닿으면
 	if (_player->getRect().right > WINSIZEX)
 	{
 		_saveX = _player->getRect().left;
+		
 	}
 	move();
+
+	if (_settingCnt == 1)
+	{
+		setObject();
+	}
 }
 
 void gameMap::render()
@@ -50,8 +59,39 @@ void gameMap::move()
 	{
 		_saveX -= 5;
 		if (_saveX < 0)
+		{
 			_saveX = 0;
+			_settingCnt = 0;
+		}
 		_moveX += 5;
 		_player->setX(_saveX);
+	}
+}
+
+//맵 위에 오브젝트를 깔아주자 / 적, 아이템
+void gameMap::setObject()
+{
+	//적을 배치한다
+	if (_moveX == 0)
+	{
+		_enemyMgr->setEnemy(BOXBOY, 500, CENTERY);
+	}
+	else if (_moveX == 595)
+	{
+		_enemyMgr->setEnemy(BOXBOY, WINSIZEX, CENTERY);
+		_enemyMgr->setEnemy(BOXBOY, WINSIZEX, CENTERY + 100);
+		_enemyMgr->setEnemy(BOXBOY, WINSIZEX, CENTERY + 200);
+	}
+	else if (_moveX == 1190)
+	{
+	}
+	else if (_moveX == 1785)
+	{
+	}
+	else if (_moveX == 2380)
+	{
+	}
+	else if (_moveX == 2975)
+	{
 	}
 }

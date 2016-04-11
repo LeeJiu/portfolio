@@ -1,12 +1,14 @@
 #pragma once
 #include "gameNode.h"
 
+class player;
+
 enum ENEMYSTATE
 {
-	IDLE,
-	RUN,
-	ATTACK,
-	DEAD
+	E_IDLE,
+	E_RUN,
+	E_ATTACK,
+	E_DEAD
 };
 
 struct tagEnemy
@@ -17,6 +19,7 @@ struct tagEnemy
 	RECT coll;
 	POINT pt;
 	int hp;
+	bool isDead;
 	bool isRight;
 };
 
@@ -25,11 +28,13 @@ class enemy : public gameNode
 protected:
 	tagEnemy _enemy;
 
-public:
-	/*virtual*/ enemy();
-	/*virtual*/ ~enemy();
+	player* _player;
 
-	virtual HRESULT init();
+public:
+	enemy();
+	virtual ~enemy();
+
+	virtual HRESULT init(int x, int y);
 	virtual void release();
 	virtual void update();
 	virtual void render();
@@ -38,5 +43,12 @@ public:
 	virtual void attack();
 	virtual void damage();
 	virtual void dead();
-	virtual void collision();	//인자 : 플레이어의 렉트
+	virtual void collision();
+	virtual bool isDead() { return _enemy.isDead; }
+
+	//엑세스 함수
+	virtual int getX() { return _enemy.pt.x; }
+	virtual int getY() { return _enemy.pt.y; }
+
+	virtual void setPlayerMemoryLink(player* player) { _player = player; }
 };

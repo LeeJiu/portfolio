@@ -4,7 +4,17 @@
 #include "enemy.h"
 #include <vector>
 
+#include "boxboy.h"
+
 class player;
+
+enum ENEMYTYPE
+{
+	BOXBOY,
+	CHOCOBEE,
+	HIP,
+	BOSS
+};
 
 class enemyManager : public gameNode
 {
@@ -27,9 +37,7 @@ public:
 	void update();
 	void render();
 	
-	void setEnemy();
-	void removeEnemy(int arrNum);
-	void collision();					//에너미들의 충돌 체크 함수를 부르자
+	void setEnemy(ENEMYTYPE type, int x, int y);
 
 	inline vector<enemy*> getVEnemy() { return _vEnemy; }
 	inline vector<enemy*>::iterator getVIEnemy() { return _viEnemy; }

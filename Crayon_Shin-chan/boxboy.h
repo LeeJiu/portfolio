@@ -21,5 +21,7 @@ public:
 	void damage();
 	void dead();
 	void collision();
+
+	void setPlayerMemoryLink(player* player) { _player = player; }
 };
 

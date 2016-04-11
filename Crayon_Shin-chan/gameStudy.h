@@ -1,14 +1,16 @@
 #pragma once
 
 #include "gameNode.h"
-#include "player.h"
 #include "gameMap.h"
+#include "player.h"
+#include "enemyManager.h"
 
 class gameStudy : public gameNode
 {
 private:
 	gameMap* _map;
 	player* _player;
+	enemyManager* _enemyMgr;
 
 public:
 	gameStudy();

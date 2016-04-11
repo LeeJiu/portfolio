@@ -13,7 +13,7 @@ player::~player()
 
 HRESULT player::init()
 {
-	_player.pt.x = CENTERX;
+	_player.pt.x = CENTERX/3;
 	_player.pt.y = CENTERY;
 	_player.coll = RectMakeCenter(_player.pt.x, _player.pt.y, 50, 50);
 

@@ -11,7 +11,7 @@ enemy::~enemy()
 {
 }
 
-HRESULT enemy::init()
+HRESULT enemy::init(int x, int y)
 {
 
 
