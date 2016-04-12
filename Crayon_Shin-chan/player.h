@@ -30,6 +30,9 @@ class player : public gameNode
 {
 private:
 	tagPlayer _player;
+	int _count;
+	int _indexIdle, _indexRun, _indexAttack;
+	int _curFrameX, _curFrameY;
 
 	RECT test;
 	POINT pt;
@@ -53,11 +56,14 @@ public:
 	void collision();	//인자 : 플레이어의 렉트, 에너미의 렉트
 
 	//엑세스 함수 / 테스트용
-	float getX() { return _player.pt.x; }
-	float getY() { return _player.pt.y; }
+	int getX() { return _player.pt.x; }
+	int getY() { return _player.pt.y; }
 	RECT getRect() { return _player.coll; }
 
-	void setX(float x) { _player.pt.x = x + (_player.coll.right - _player.coll.left) / 2; }
+	void setX(int x) { _player.pt.x = x + (_player.coll.right - _player.coll.left) / 2; }
+
+	void setFrame();
+	void setImage();
 
 	void setEnemyManagerMemoryLink() {  }
 	void setMapMemoryLink(gameMap* gameMap) { _gameMap = gameMap; }

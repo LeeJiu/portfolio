@@ -14,6 +14,7 @@ boxboy::~boxboy()
 
 HRESULT boxboy::init(int x, int y)
 {
+
 	_enemy.pt.x = x;
 	_enemy.pt.y = y;
 	_enemy.coll = RectMakeCenter(_enemy.pt.x, _enemy.pt.y, 50, 50);
