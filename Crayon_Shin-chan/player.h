@@ -1,7 +1,12 @@
 #pragma once
+
+#pragma warning(disable : 4996)
+
 #include "gameNode.h"
+#include "progressBar.h"
 
 class gameMap;
+class enemyManager;
 
 enum PLAYERSTATE
 {
@@ -21,7 +26,7 @@ struct tagPlayer
 	PLAYERSTATE state;
 	RECT coll;
 	POINT pt;
-	int hp, mp;
+	int curHp, curMp, maxHp, maxMp;
 	bool isRight;
 };
 
@@ -31,13 +36,13 @@ class player : public gameNode
 private:
 	tagPlayer _player;
 	int _count;
-	int _indexIdle, _indexRun, _indexAttack;
 	int _curFrameX, _curFrameY;
 
-	RECT test;
-	POINT pt;
+	progressBar* _hpBar;
+	progressBar* _mpBar;
 
 	gameMap* _gameMap;
+	enemyManager* _enemyMgr;
 
 public:
 	player();
@@ -65,7 +70,7 @@ public:
 	void setFrame();
 	void setImage();
 
-	void setEnemyManagerMemoryLink() {  }
+	void setEnemyMgrMemoryLink(enemyManager* enemyMgr) { _enemyMgr = enemyMgr; }
 	void setMapMemoryLink(gameMap* gameMap) { _gameMap = gameMap; }
 };
 

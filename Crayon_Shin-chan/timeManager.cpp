@@ -44,7 +44,7 @@ void timeManager::render(HDC hdc)
 	SetBkMode(hdc, TRANSPARENT);
 
 	//글자 색상
-	SetTextColor(hdc, RGB(255, 255, 255));
+	SetTextColor(hdc, RGB(0, 0, 0));
 
 #ifdef _DEBUG
 	{

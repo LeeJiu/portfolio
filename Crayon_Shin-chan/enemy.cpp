@@ -38,7 +38,7 @@ void enemy::attack()
 {
 }
 
-void enemy::damage()
+void enemy::damage(int damage)
 {
 }
 
@@ -47,5 +47,13 @@ void enemy::dead()
 }
 
 void enemy::collision()
+{
+}
+
+void enemy::setImage()
+{
+}
+
+void enemy::setFrame()
 {
 }

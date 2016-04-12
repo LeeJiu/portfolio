@@ -101,6 +101,8 @@ public:
 	void render( HDC hdc, int destX, int destY );
 	void render(HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight);
 
+	void render(HDC hdc, int destX, int destY, int destWidth, int destHeight, int sourX, int sourY, int sourWidth, int sourHeight);
+
 	//¾ËÆÄ ·»´õ
 	void alphaRender(HDC hdc, int destX, int destY, BYTE alpha);
 	void alphaRender(HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight, BYTE alpha);

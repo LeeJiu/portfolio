@@ -541,6 +541,29 @@ void image::render(HDC hdc, int destX, int destY, int sourX, int sourY, int sour
 	}
 }
 
+void image::render(HDC hdc, int destX, int destY, int destWidth, int destHeight, int sourX, int sourY, int sourWidth, int sourHeight)
+{
+	if (_trans)
+	{
+		GdiTransparentBlt(
+			hdc,				//복사할 장소의 DC
+			destX,				//복사될 좌표 시작X
+			destY,				//복사될 좌표 시작Y
+			destWidth,			//복사될 크기 width
+			destHeight,			//복사될 크기 height
+			_imageInfo->hMemDC,	//복사할 DC
+			sourX, sourY,		//복사 시작지점 x, y
+			sourWidth,			//복사할 크기 width
+			sourHeight,			//복사할 크기 height
+			_transColor);		//복사에서 제외할 색상
+	}
+	else
+	{
+		BitBlt(hdc, destX, destY, destWidth, destHeight,
+			_imageInfo->hMemDC, sourX, sourY, SRCCOPY);
+	}
+}
+
 void image::alphaRender(HDC hdc, int destX, int destY, BYTE alpha)
 {
 	if (!_blendImage) alphaInit();

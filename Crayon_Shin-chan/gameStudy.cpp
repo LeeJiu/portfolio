@@ -28,6 +28,7 @@ HRESULT gameStudy::init()
 	_map->setEnemyMgrMemoryLink(_enemyMgr);
 
 	_player->setMapMemoryLink(_map);
+	_player->setEnemyMgrMemoryLink(_enemyMgr);
 
 	_enemyMgr->setPlayerMemoryLink(_player);
 
@@ -36,6 +37,7 @@ HRESULT gameStudy::init()
 
 void gameStudy::release()
 {
+	_player->release();
 	SAFE_DELETE(_map);
 	SAFE_DELETE(_player);
 	SAFE_DELETE(_enemyMgr);

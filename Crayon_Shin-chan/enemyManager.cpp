@@ -19,6 +19,12 @@ HRESULT enemyManager::init()
 
 void enemyManager::release()
 {
+	for (_viEnemy = _vEnemy.begin(); _viEnemy != _vEnemy.end(); ++_viEnemy)
+	{
+		(*_viEnemy)->release();
+		SAFE_DELETE(*_viEnemy);
+	}
+	_vEnemy.clear();
 }
 
 void enemyManager::update()

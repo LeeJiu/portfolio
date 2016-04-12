@@ -96,9 +96,6 @@
     <ClInclude Include="txtData.h">
       <Filter>2D Framework\txtData</Filter>
     </ClInclude>
-    <ClInclude Include="progressBar.h">
-      <Filter>2D Framework\progressBar</Filter>
-    </ClInclude>
     <ClInclude Include="animation.h">
       <Filter>2D Framework\animation</Filter>
     </ClInclude>
@@ -108,14 +105,17 @@
     <ClInclude Include="gameMap.h">
       <Filter>gameStudy\map</Filter>
     </ClInclude>
-    <ClInclude Include="enemyManager.h">
-      <Filter>gameStudy\enemy</Filter>
-    </ClInclude>
     <ClInclude Include="enemy.h">
       <Filter>gameStudy\enemy</Filter>
     </ClInclude>
     <ClInclude Include="boxboy.h">
       <Filter>gameStudy\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="enemyManager.h">
+      <Filter>gameStudy\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="progressBar.h">
+      <Filter>2D Framework\progressBar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -149,9 +149,6 @@
     <ClCompile Include="txtData.cpp">
       <Filter>2D Framework\txtData</Filter>
     </ClCompile>
-    <ClCompile Include="progressBar.cpp">
-      <Filter>2D Framework\progressBar</Filter>
-    </ClCompile>
     <ClCompile Include="animation.cpp">
       <Filter>2D Framework\animation</Filter>
     </ClCompile>
@@ -170,8 +167,11 @@
     <ClCompile Include="boxboy.cpp">
       <Filter>gameStudy\enemy</Filter>
     </ClCompile>
+    <ClCompile Include="progressBar.cpp">
+      <Filter>2D Framework\progressBar</Filter>
+    </ClCompile>
     <ClCompile Include="timeManager.cpp">
-      <Filter>2D Framework</Filter>
+      <Filter>2D Framework\manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

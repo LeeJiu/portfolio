@@ -5,7 +5,7 @@
 class boxboy : public enemy
 {
 private:
-
+	float _range;
 
 public:
 	boxboy();
@@ -18,9 +18,12 @@ public:
 
 	void move();
 	void attack();
-	void damage();
+	void damage(int damage);
 	void dead();
 	void collision();
+
+	void setImage();
+	void setFrame();
 
 	void setPlayerMemoryLink(player* player) { _player = player; }
 };

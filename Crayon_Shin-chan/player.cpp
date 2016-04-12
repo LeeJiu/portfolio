@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "player.h"
+#include "enemyManager.h"
 
 
 player::player()
@@ -13,30 +14,49 @@ player::~player()
 
 HRESULT player::init()
 {
+	_count = 0;
+	
 	IMAGEMANAGER->addFrameImage("jjangu_idle", "image/player/jjangu_idle.bmp", 162, 162, 3, 2, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("jjangu_run", "image/player/jjangu_run.bmp", 432, 158, 6, 2, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("jjangu_attack", "image/player/jjangu_attack.bmp", 240, 160, 3, 2, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("jjangu_damage", "image/player/jjangu_damage.bmp", 207, 160, 3, 2, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("jjangu_dead", "image/player/jjangu_dead.bmp", 570, 160, 5, 2, true, 0xff00ff);
-	
+
 	_player.player = IMAGEMANAGER->findImage("jjangu_idle");
 	_player.state = P_IDLE;
 	_player.isRight = true;
 	_player.pt.x = CENTERX/3;
 	_player.pt.y = CENTERY;
 	_player.coll = RectMakeCenter(_player.pt.x, _player.pt.y, _player.player->getFrameWidth(), _player.player->getFrameHeight());
+	_player.maxHp = _player.curHp = 1000;
+	_player.maxMp = _player.curMp = 1000;
 
-	_count = 0;
+	IMAGEMANAGER->addImage("bgBar", "image/ui/gauge_bg.bmp", 162, 44, true, 0xff00ff);
+	IMAGEMANAGER->addImage("hpBar", "image/ui/gauge_hp.bmp", 162, 44, true, 0xff00ff);
+	IMAGEMANAGER->addImage("mpBar", "image/ui/gauge_mp.bmp", 162, 44, true, 0xff00ff);
+
+	_hpBar = new progressBar;
+	_hpBar->init("bgBar", "hpBar", _player.maxHp, _player.curHp);
+	_hpBar->setBar(0, 0, 250, 50);
+
+	_mpBar = new progressBar;
+	_mpBar->init("bgBar", "mpBar", _player.maxMp, _player.curMp);
+	_mpBar->setBar(0, 50, 250, 50);
+
 
 	return S_OK;
 }
 
 void player::release()
 {
+	SAFE_DELETE(_hpBar);
+	SAFE_DELETE(_mpBar);
 }
 
 void player::update()
 {
+	_hpBar->update();
+	_mpBar->update();
 	move();
 	attack();
 	setImage();
@@ -44,6 +64,8 @@ void player::update()
 
 void player::render()
 {
+	_hpBar->render();
+	_mpBar->render();
 	Rectangle(getMemDC(), _player.coll.left, _player.coll.top, _player.coll.right, _player.coll.bottom);
 	_player.player->frameRender(getMemDC(), _player.coll.left, _player.coll.top, _player.player->getFrameX(), _player.player->getFrameY());
 }
@@ -122,6 +144,9 @@ void player::attack()
 			{
 				_curFrameX = IMAGEMANAGER->findImage("jjangu_attack")->getMaxFrameX();
 			}
+			int width = IMAGEMANAGER->findImage("jjangu_attack")->getFrameWidth();
+			int height = IMAGEMANAGER->findImage("jjangu_attack")->getFrameHeight();
+			_player.coll = RectMakeCenter(_player.pt.x, _player.pt.y, width, height);
 			collision();
 		}
 	}
@@ -129,15 +154,32 @@ void player::attack()
 
 void player::damage()
 {
+	_player.curHp -= 50;
+	_hpBar->decreaseBar(50);
+	if (_player.curHp <= 0)
+	{
+		_player.curHp = 0;
+		dead();
+	}
 }
 
 void player::dead()
 {
+	_player.state = P_DEAD;
 }
 
 void player::collision()
 {
+	for (int i = 0; i < _enemyMgr->getVEnemy().size(); ++i)
+	{
+		if (_enemyMgr->getVEnemy()[i]->isDead()) continue;
 
+		if (IntersectRect(&RectMake(0, 0, 0, 0), &_player.coll, &_enemyMgr->getVEnemy()[i]->getRect()))
+		{
+			//_enemyMgr->getVEnemy()[i]->dead();
+			_enemyMgr->getVEnemy()[i]->damage(50);
+		}
+	}
 }
 
 void player::setFrame()
@@ -155,6 +197,11 @@ void player::setFrame()
 				if (_player.state == P_ATTACK)
 				{
 					_player.state = P_IDLE;
+					return;
+				}
+				else if (_player.state == P_DEAD)
+				{
+					_curFrameX = _player.player->getMaxFrameX();
 					return;
 				}
 				else
@@ -178,6 +225,11 @@ void player::setFrame()
 				if (_player.state == P_ATTACK)
 				{
 					_player.state = P_IDLE;
+					return;
+				}
+				else if (_player.state == P_DEAD)
+				{
+					_curFrameX = 0;
 					return;
 				}
 				else
@@ -218,10 +270,10 @@ void player::setImage()
 	/*case P_DAMAGE:
 		_player.player = IMAGEMANAGER->findImage("jjangu_damage");
 		setFrame();
-		break;
+		break;*/
 	case P_DEAD:
 		_player.player = IMAGEMANAGER->findImage("jjangu_dead");
 		setFrame();
-		break;*/
+		break;
 	}
 }

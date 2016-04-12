@@ -58,7 +58,7 @@ void gameMap::move()
 	if (_saveX > 0 && _moveX < 4000 - WINSIZEX)
 	{
 		_saveX -= 5;
-		if (_saveX < 0)
+		if (_saveX <= 0)
 		{
 			_saveX = 0;
 			_settingCnt = 0;
@@ -76,22 +76,30 @@ void gameMap::setObject()
 	{
 		_enemyMgr->setEnemy(BOXBOY, 500, CENTERY);
 	}
-	else if (_moveX == 595)
+	else if (_moveX == 570)
 	{
 		_enemyMgr->setEnemy(BOXBOY, WINSIZEX, CENTERY);
+		_enemyMgr->setEnemy(BOXBOY, WINSIZEX, CENTERY + 50);
 		_enemyMgr->setEnemy(BOXBOY, WINSIZEX, CENTERY + 100);
-		_enemyMgr->setEnemy(BOXBOY, WINSIZEX, CENTERY + 200);
 	}
-	else if (_moveX == 1190)
+	else if (_moveX == 1145)
 	{
+
 	}
-	else if (_moveX == 1785)
+	else if (_moveX == 1720)
 	{
+
 	}
-	else if (_moveX == 2380)
+	else if (_moveX == 2295)
 	{
+
 	}
-	else if (_moveX == 2975)
+	else if (_moveX == 2870)
 	{
+
+	}
+	else if (_moveX == 3360)
+	{
+
 	}
 }
