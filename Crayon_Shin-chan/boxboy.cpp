@@ -47,16 +47,23 @@ void boxboy::release()
 
 void boxboy::update()
 {
+	if (KEYMANAGER->isOnceKeyDown('Y'))
+		_test = !_test;
+
 	_hpBar->update();
 	_hpBar->setPosition(_enemy.coll.left, _enemy.coll.top - 5);
-	move();
-	collision();
+	if (_enemy.state != E_DEAD && _enemy.state != NONE)
+	{
+		move();
+		attack();
+	}
 	setImage();
 }
 
 void boxboy::render()
 {
-	Rectangle(getMemDC(), _enemy.coll.left, _enemy.coll.top, _enemy.coll.right, _enemy.coll.bottom);
+	if(_test)
+		Rectangle(getMemDC(), _enemy.coll.left, _enemy.coll.top, _enemy.coll.right, _enemy.coll.bottom);
 	_enemy.enemy->frameRender(getMemDC(), _enemy.coll.left, _enemy.coll.top, _enemy.enemy->getFrameX(), _enemy.enemy->getFrameY());
 	_hpBar->render();
 }
@@ -65,19 +72,34 @@ void boxboy::move()
 {
 	if (MY_UTIL::getDistance(_enemy.pt.x, _enemy.pt.y, _player->getX(), _player->getY()) < _range)
 	{
+		if (_enemy.state != E_ATTACK)
+			_enemy.state = E_RUN;
+
 		//플레이어 쪽으로 이동
-		if (_enemy.pt.x > _player->getX() + 50)
+		if (_enemy.pt.x > _player->getX() + 40)
 		{
 			if (_enemy.isRight)
 				_enemy.isRight = false;
 			_enemy.pt.x -= 2;
 		}
-		else if (_enemy.pt.x < _player->getX() - 50)
+		else if (_enemy.pt.x < _player->getX() - 40)
 		{
 			if (!_enemy.isRight)
 				_enemy.isRight = true;
 			_enemy.pt.x += 2;
 		}
+		else if (_enemy.pt.y > _player->getY() + 2)
+		{
+			_enemy.pt.y -= 2;
+		}
+		else if (_enemy.pt.y < _player->getY() - 2)
+		{
+			_enemy.pt.y += 2;
+		}
+	}
+	else
+	{
+		_enemy.state = E_IDLE;
 	}
 	
 	_enemy.coll = RectMakeCenter(_enemy.pt.x, _enemy.pt.y, _enemy.enemy->getFrameWidth(), _enemy.enemy->getFrameHeight());
@@ -85,7 +107,27 @@ void boxboy::move()
 
 void boxboy::attack()
 {
+	if (_enemy.pt.x < _player->getX() + 50 && _enemy.pt.x > _player->getX() - 50
+		&& _enemy.pt.y < _player->getY() + 5 && _enemy.pt.y > _player->getY() - 5
+		&& _enemy.state != E_ATTACK)
+	{
+		_enemy.state = E_ATTACK;
+		if (_enemy.pt.x > _player->getX())
+		{
+			_enemy.isRight = false;
+			_curFrameX = IMAGEMANAGER->findImage("boxboy_attack")->getMaxFrameX();
+		}
+		else if (_enemy.pt.x < _player->getX())
+		{
+			_enemy.isRight = true;
+			_curFrameX = 0;
+		}
 
+		int width = IMAGEMANAGER->findImage("boxboy_attack")->getFrameWidth();
+		int height = IMAGEMANAGER->findImage("boxboy_attack")->getFrameHeight();
+		_enemy.coll = RectMakeCenter(_enemy.pt.x, _enemy.pt.y, width, height);
+		collision();
+	}
 }
 
 void boxboy::damage(int damage)
@@ -112,7 +154,7 @@ void boxboy::collision()
 {
 	if (IntersectRect(&RectMake(0, 0, 0, 0), &_enemy.coll, &_player->getRect()))
 	{
-		//_player->damage();
+		_player->damage(20);
 	}
 }
 
@@ -146,6 +188,8 @@ void boxboy::setImage()
 		setFrame();
 	}
 	break;
+	case NONE:
+		return;
 	}
 }
 
@@ -169,6 +213,7 @@ void boxboy::setFrame()
 				else if (_enemy.state == E_DEAD)
 				{
 					dead();
+					_enemy.state = NONE;		//더 이상 프레임을 돌지 않는다.
 					return;
 				}
 				else
@@ -197,6 +242,7 @@ void boxboy::setFrame()
 				else if (_enemy.state == E_DEAD)
 				{
 					dead();
+					_enemy.state = NONE;
 					return;
 				}
 				else

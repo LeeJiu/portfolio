@@ -9,7 +9,8 @@ enum ENEMYSTATE
 	E_IDLE,
 	E_RUN,
 	E_ATTACK,
-	E_DEAD
+	E_DEAD,
+	NONE
 };
 
 struct tagEnemy
@@ -34,6 +35,8 @@ protected:
 
 	player* _player;
 
+	bool _test;
+
 public:
 	enemy();
 	virtual ~enemy();
@@ -57,6 +60,7 @@ public:
 	virtual int getX() { return _enemy.pt.x; }
 	virtual int getY() { return _enemy.pt.y; }
 	virtual RECT getRect() { return _enemy.coll; }
+	virtual ENEMYSTATE getState() { return _enemy.state; }
 
 	virtual void setPlayerMemoryLink(player* player) { _player = player; }
 };

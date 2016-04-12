@@ -78,28 +78,38 @@ void gameMap::setObject()
 	}
 	else if (_moveX == 570)
 	{
-		_enemyMgr->setEnemy(BOXBOY, WINSIZEX, CENTERY);
-		_enemyMgr->setEnemy(BOXBOY, WINSIZEX, CENTERY + 50);
-		_enemyMgr->setEnemy(BOXBOY, WINSIZEX, CENTERY + 100);
+		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 50, CENTERY);
+		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 100, CENTERY + 50);
+		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 150, CENTERY + 100);
 	}
 	else if (_moveX == 1145)
 	{
-
+		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 50, CENTERY);
+		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 200, CENTERY + 50);
+		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 350, CENTERY + 100);
 	}
 	else if (_moveX == 1720)
 	{
-
+		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 50, CENTERY);
+		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 200, CENTERY + 50);
+		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 350, CENTERY + 100);
 	}
 	else if (_moveX == 2295)
 	{
-
+		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 50, CENTERY);
+		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 200, CENTERY + 50);
+		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 350, CENTERY + 100);
 	}
 	else if (_moveX == 2870)
 	{
-
+		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 50, CENTERY);
+		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 200, CENTERY + 50);
+		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 350, CENTERY + 100);
 	}
 	else if (_moveX == 3360)
 	{
-
+		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 50, CENTERY);
+		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 200, CENTERY + 50);
+		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 350, CENTERY + 100);
 	}
 }

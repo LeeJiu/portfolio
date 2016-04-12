@@ -55,6 +55,9 @@ void player::release()
 
 void player::update()
 {
+	if (KEYMANAGER->isOnceKeyDown('T'))
+		_test = !_test;
+
 	_hpBar->update();
 	_mpBar->update();
 	move();
@@ -66,7 +69,8 @@ void player::render()
 {
 	_hpBar->render();
 	_mpBar->render();
-	Rectangle(getMemDC(), _player.coll.left, _player.coll.top, _player.coll.right, _player.coll.bottom);
+	if(_test)
+		Rectangle(getMemDC(), _player.coll.left, _player.coll.top, _player.coll.right, _player.coll.bottom);
 	_player.player->frameRender(getMemDC(), _player.coll.left, _player.coll.top, _player.player->getFrameX(), _player.player->getFrameY());
 }
 
@@ -152,10 +156,10 @@ void player::attack()
 	}
 }
 
-void player::damage()
+void player::damage(int damage)
 {
-	_player.curHp -= 50;
-	_hpBar->decreaseBar(50);
+	_player.curHp -= damage;
+	_hpBar->decreaseBar(damage);
 	if (_player.curHp <= 0)
 	{
 		_player.curHp = 0;

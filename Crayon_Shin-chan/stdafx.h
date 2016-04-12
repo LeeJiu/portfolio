@@ -30,7 +30,7 @@
 //using namespace MY_UTIL;
 
 /* ===== 디파인문 ===== */
-#define WINNAME (LPTSTR)(TEXT("API_1601"))
+#define WINNAME (LPTSTR)(TEXT("짱구는 못말려"))
 #define WINSTARTX 10
 #define WINSTARTY 10
 #define WINSIZEX 640

@@ -44,6 +44,8 @@ private:
 	gameMap* _gameMap;
 	enemyManager* _enemyMgr;
 
+	bool _test;
+
 public:
 	player();
 	~player();
@@ -55,7 +57,7 @@ public:
 
 	void move();
 	void attack();
-	void damage();
+	void damage(int damage);
 	void dead();
 	//void skill();		//보류
 	void collision();	//인자 : 플레이어의 렉트, 에너미의 렉트
