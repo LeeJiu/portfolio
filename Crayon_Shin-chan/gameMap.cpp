@@ -29,26 +29,21 @@ void gameMap::release()
 void gameMap::update()
 {
 	_settingCnt++;
+	_enemyCnt = 0;
 
-	for (int i = 0; i < _objectMgr->getVObject().size(); ++i)
+	checkScroll();
+	findPlayer();
+
+	if (_enemyCnt == 0) 
 	{
-		if (_objectMgr->getVObject()[i]->getType() == PLAYER)
-		{
-			if (_objectMgr->getVObject()[i]->getRect().right > WINSIZEX)
-			{
-				_saveX = _objectMgr->getVObject()[i]->getRect().left;
-				_saveIdx = i;
-				break;
-			}
-		}
+		move();
 	}
-
-	move();
 
 	if (_settingCnt == 1)
 	{
 		setObject();
 	}
+
 }
 
 void gameMap::render()
@@ -57,10 +52,40 @@ void gameMap::render()
 
 	char str[128];
 	sprintf_s(str, "moveX : %d", _moveX);
-	TextOut(getMemDC(), 0, 60, str, strlen(str));
+	TextOut(getMemDC(), 0, 90, str, strlen(str));
 
 	sprintf_s(str, "saveX : %d", _saveX);
-	TextOut(getMemDC(), 0, 80, str, strlen(str));
+	TextOut(getMemDC(), 0, 110, str, strlen(str));
+}
+
+void gameMap::checkScroll()
+{
+	//맵에 적이 모두 죽지 않으면 스크롤하지 않는다
+	for (int i = 0; i < _objectMgr->getVObject().size(); ++i)
+	{
+		if (_objectMgr->getVObject()[i]->getType() == PLAYER) continue;
+		else
+		{
+			if (!_objectMgr->getVObject()[i]->isDead())
+				_enemyCnt++;
+		}
+	}
+}
+
+void gameMap::findPlayer()
+{
+	for (int i = 0; i < _objectMgr->getVObject().size(); ++i)
+	{
+		if (_objectMgr->getVObject()[i]->getType() == PLAYER)
+		{
+			if (_enemyCnt == 0 && _objectMgr->getVObject()[i]->getRect().right > WINSIZEX)
+			{
+				_saveX = _objectMgr->getVObject()[i]->getRect().left;
+				_saveIdx = i;
+				break;
+			}
+		}
+	}
 }
 
 void gameMap::move()
@@ -73,6 +98,11 @@ void gameMap::move()
 			_saveX = 0;
 			_settingCnt = 0;
 		}
+		else if (_moveX >= 3350 && _saveX >= 60)
+		{
+			_settingCnt = 0;
+		}
+
 		_moveX += 5;
 		_objectMgr->getVObject()[_saveIdx]->setX(_saveX);
 	}
@@ -84,8 +114,8 @@ void gameMap::setObject()
 	//적을 배치한다
 	if (_moveX == 0)
 	{
-		//_objectMgr->setObject(BOXBOY, 500, CENTERY);
-		_objectMgr->setObject(CHOCOBEE, 500, CENTERY);
+		_objectMgr->setObject(BOXBOY, 500, CENTERY);
+		//_objectMgr->setObject(CHOCOBEE, 500, CENTERY);
 	}
 	else if (_moveX == 570)
 	{

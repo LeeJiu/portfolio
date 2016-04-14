@@ -11,6 +11,7 @@ private:
 	int _saveX;
 	int _saveIdx;
 	int _settingCnt;
+	int _enemyCnt;
 
 	objectManager* _objectMgr;
 
@@ -23,6 +24,8 @@ public:
 	void update();
 	void render();
 
+	void checkScroll();
+	void findPlayer();
 	void move();	//맵 이동 제한해주자
 	void setObject();
 

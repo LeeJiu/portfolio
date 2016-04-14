@@ -64,6 +64,7 @@ public:
 	virtual void setY(int y) = 0;
 
 	virtual void damage(int damage) = 0;
+	virtual void dead() = 0;
 	virtual bool isDead() = 0;
 
 	virtual void setObjectMgrMemoryLink(objectManager* objectMgr) { _objectMgr = objectMgr; }

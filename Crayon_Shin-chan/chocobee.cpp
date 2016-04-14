@@ -187,6 +187,7 @@ void chocobee::damage(int damage)
 void chocobee::dead()
 {
 	_isDead = true;
+	_enemy.state = NONE;
 }
 
 void chocobee::collision()
@@ -276,7 +277,6 @@ void chocobee::setFrame()
 				else if (_enemy.state == DEAD)
 				{
 					dead();
-					_enemy.state = NONE;		//더 이상 프레임을 돌지 않는다.
 					return;
 				}
 				else
@@ -307,7 +307,6 @@ void chocobee::setFrame()
 				else if (_enemy.state == DEAD)
 				{
 					dead();
-					_enemy.state = NONE;
 					return;
 				}
 				else
