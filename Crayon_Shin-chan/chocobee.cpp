@@ -14,7 +14,8 @@ chocobee::~chocobee()
 
 HRESULT chocobee::init(int x, int y)
 {
-	IMAGEMANAGER->addFrameImage("chocobee_run", "image/enemy/boxboy_run.bmp", 308, 120, 4, 2, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("chocobee_run", "image/enemy/chocobee_run.bmp", 308, 120, 4, 2, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("chocobee_attack", "image/enemy/chocobee_attack.bmp", 240, 90, 3, 1, true, 0xff00ff);
 
 	_enemy.charater = new image;
 	_enemy.charater->init("image/enemy/chocobee_idle.bmp", 80, 90, 1, 1, true, 0xff00ff);
@@ -94,9 +95,6 @@ void chocobee::move()
 {
 	if (MY_UTIL::getDistance(_enemy.pt.x, _enemy.pt.y, _playerX, _playerY) < _range)
 	{
-		//if (_enemy.state != ATTACK)
-		//	_enemy.state = RUN;
-
 		//플레이어 쪽으로 이동
 		if (_enemy.pt.x > _playerX + 40)
 		{
@@ -123,6 +121,11 @@ void chocobee::move()
 	{
 		//플레이어랑 멀어지면 죽는다
 		_enemy.state = DEAD;
+		if (_enemy.isRight)
+			_curFrameX = 0;
+		else
+			_curFrameX = 3;
+
 	}
 
 	_enemy.coll = RectMakeCenter(_enemy.pt.x, _enemy.pt.y, _enemy.charater->getFrameWidth(), _enemy.charater->getFrameHeight());
@@ -130,7 +133,7 @@ void chocobee::move()
 
 void chocobee::attack()
 {
-	if (_enemy.pt.x < _playerX + 50 && _enemy.pt.x > _playerX - 50
+	if (_enemy.pt.x < _playerX + 60 && _enemy.pt.x > _playerX - 60
 		&& _enemy.pt.y < _playerY + 5 && _enemy.pt.y > _playerY - 5
 		&& _enemy.state == RUN)
 	{
@@ -150,7 +153,7 @@ void chocobee::attack()
 		_enemy.coll = RectMakeCenter(_enemy.pt.x, _enemy.pt.y, width, height);
 		collision();
 	}
-	else if(_enemy.pt.x < _playerX + 50 && _enemy.pt.x > _playerX - 50
+	else if(_enemy.pt.x < _playerX + 60 && _enemy.pt.x > _playerX - 60
 		&& _enemy.pt.y < _playerY + 5 && _enemy.pt.y > _playerY - 5
 		&& _enemy.state == IDLE)
 	{
@@ -200,6 +203,12 @@ void chocobee::collision()
 		{
 			if (_objectMgr->getVObject()[_saveIdx]->getState() == ATTACK)
 			{
+				_enemy.state = ATTACK;
+				_curFrameX = 0;
+				_curFrameY = 0;
+				int width = IMAGEMANAGER->findImage("chocobee_attack")->getFrameWidth();
+				int height = IMAGEMANAGER->findImage("chocobee_attack")->getFrameHeight();
+				_enemy.coll = RectMakeCenter(_enemy.pt.x, _enemy.pt.y, width, height);
 				_objectMgr->getVObject()[_saveIdx]->damage(50);
 			}
 		}
@@ -260,8 +269,8 @@ void chocobee::setFrame()
 				if (_enemy.state == ATTACK)
 				{
 					_enemy.state = RUN;
-					_curFrameX = 0;
-					_curFrameY = 0;
+					_curFrameX = 3;
+					_curFrameY = 1;
 					return;
 				}
 				else if (_enemy.state == DEAD)
@@ -291,6 +300,8 @@ void chocobee::setFrame()
 				if (_enemy.state == ATTACK)
 				{
 					_enemy.state = RUN;
+					_curFrameX = 0;
+					_curFrameY = 0;
 					return;
 				}
 				else if (_enemy.state == DEAD)

@@ -74,6 +74,7 @@ void player::render()
 {
 	_hpBar->render();
 	_mpBar->render();
+	
 	if(_test)
 		Rectangle(getMemDC(), _player.coll.left, _player.coll.top, _player.coll.right, _player.coll.bottom);
 	_player.charater->frameRender(getMemDC(), _player.coll.left, _player.coll.top, _player.charater->getFrameX(), _player.charater->getFrameY());
@@ -106,7 +107,7 @@ void player::move()
 	if (KEYMANAGER->isStayKeyDown(VK_UP))
 	{
 		if (_player.coll.bottom > CENTERY
-			&& _player.state != DAMAGE && _player.state != DEAD)
+			/*&& _player.state != DAMAGE*/ && _player.state != DEAD)
 		{
 			_player.state = RUN;
 			_player.pt.y -= 5;
@@ -115,7 +116,7 @@ void player::move()
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
 		if (_player.coll.bottom < WINSIZEY
-			&& _player.state != DAMAGE && _player.state != DEAD)
+			/*&& _player.state != DAMAGE*/ && _player.state != DEAD)
 		{
 			_player.state = RUN;
 			_player.pt.y += 5;
