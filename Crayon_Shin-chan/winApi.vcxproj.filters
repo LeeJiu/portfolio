@@ -40,13 +40,16 @@
     <Filter Include="2D Framework\animation">
       <UniqueIdentifier>{f6b50837-9f7b-4c12-a68f-ed1c786f51e9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="gameStudy\player">
-      <UniqueIdentifier>{fac13230-3379-41db-aa5f-c0035b53a6e7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="gameStudy\map">
       <UniqueIdentifier>{512b950d-7861-4442-9c9e-78ab94c92f7f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="gameStudy\enemy">
+    <Filter Include="gameStudy\object">
+      <UniqueIdentifier>{d94fbd99-4643-4c1c-bf5e-80d66f155647}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameStudy\object\player">
+      <UniqueIdentifier>{fac13230-3379-41db-aa5f-c0035b53a6e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameStudy\object\enemy">
       <UniqueIdentifier>{d1d03c54-a451-45d7-ae1e-273b2df1a7df}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -100,22 +103,28 @@
       <Filter>2D Framework\animation</Filter>
     </ClInclude>
     <ClInclude Include="player.h">
-      <Filter>gameStudy\player</Filter>
+      <Filter>gameStudy\object\player</Filter>
     </ClInclude>
     <ClInclude Include="gameMap.h">
       <Filter>gameStudy\map</Filter>
     </ClInclude>
     <ClInclude Include="enemy.h">
-      <Filter>gameStudy\enemy</Filter>
+      <Filter>gameStudy\object\enemy</Filter>
     </ClInclude>
     <ClInclude Include="boxboy.h">
-      <Filter>gameStudy\enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="enemyManager.h">
-      <Filter>gameStudy\enemy</Filter>
+      <Filter>gameStudy\object\enemy</Filter>
     </ClInclude>
     <ClInclude Include="progressBar.h">
       <Filter>2D Framework\progressBar</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObject.h">
+      <Filter>gameStudy\object</Filter>
+    </ClInclude>
+    <ClInclude Include="objectManager.h">
+      <Filter>gameStudy\object</Filter>
+    </ClInclude>
+    <ClInclude Include="chocobee.h">
+      <Filter>gameStudy\object\enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -153,25 +162,31 @@
       <Filter>2D Framework\animation</Filter>
     </ClCompile>
     <ClCompile Include="player.cpp">
-      <Filter>gameStudy\player</Filter>
+      <Filter>gameStudy\object\player</Filter>
     </ClCompile>
     <ClCompile Include="gameMap.cpp">
       <Filter>gameStudy\map</Filter>
     </ClCompile>
-    <ClCompile Include="enemyManager.cpp">
-      <Filter>gameStudy\enemy</Filter>
-    </ClCompile>
     <ClCompile Include="enemy.cpp">
-      <Filter>gameStudy\enemy</Filter>
+      <Filter>gameStudy\object\enemy</Filter>
     </ClCompile>
     <ClCompile Include="boxboy.cpp">
-      <Filter>gameStudy\enemy</Filter>
+      <Filter>gameStudy\object\enemy</Filter>
     </ClCompile>
     <ClCompile Include="progressBar.cpp">
       <Filter>2D Framework\progressBar</Filter>
     </ClCompile>
     <ClCompile Include="timeManager.cpp">
       <Filter>2D Framework\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="gameObject.cpp">
+      <Filter>gameStudy\object</Filter>
+    </ClCompile>
+    <ClCompile Include="objectManager.cpp">
+      <Filter>gameStudy\object</Filter>
+    </ClCompile>
+    <ClCompile Include="chocobee.cpp">
+      <Filter>gameStudy\object\enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

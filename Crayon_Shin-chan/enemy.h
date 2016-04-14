@@ -1,66 +1,68 @@
 #pragma once
-#include "gameNode.h"
+#include "gameObject.h"
 #include "progressBar.h"
 
-class player;
-
-enum ENEMYSTATE
-{
-	E_IDLE,
-	E_RUN,
-	E_ATTACK,
-	E_DEAD,
-	NONE
-};
+class objectManager;
 
 struct tagEnemy
 {
 	image* enemy;
 	image* shadow;
-	ENEMYSTATE state;
+	STATE state;
 	RECT coll;
 	POINT pt;
 	int curHp, maxHp;
-	bool isDead;
 	bool isRight;
 };
 
-class enemy : public gameNode
+class enemy : public gameObject
 {
 protected:
-	tagEnemy _enemy;
-	int _curFrameX, _curFrameY, _count;
+	tagCharacter _enemy;
 
 	progressBar* _hpBar;
 
-	player* _player;
+	objectManager* _objectMgr;
 
+	float _range;
+	int _saveIdx;
+	int _playerX;
+	int _playerY;
+
+	bool _isDead;
 	bool _test;
 
 public:
 	enemy();
 	virtual ~enemy();
 
+	virtual HRESULT init();
 	virtual HRESULT init(int x, int y);
 	virtual void release();
 	virtual void update();
 	virtual void render();
-	
-	virtual void move();
-	virtual void attack();
-	virtual void damage(int damage);
-	virtual void dead();
-	virtual void collision();
-	virtual bool isDead() { return _enemy.isDead; }
-
-	virtual void setImage();
-	virtual void setFrame();
 
 	//¿¢¼¼½º ÇÔ¼ö
-	virtual int getX() { return _enemy.pt.x; }
-	virtual int getY() { return _enemy.pt.y; }
+	virtual int getX();
+	virtual int getY();
 	virtual RECT getRect() { return _enemy.coll; }
-	virtual ENEMYSTATE getState() { return _enemy.state; }
+	virtual TYPE getType() { return _enemy.type; }
+	virtual STATE getState() { return _enemy.state; }
+	virtual void setX(int x);
+	virtual void setY(int y);
+	
+	virtual void damage(int damage);
+	virtual bool isDead() { return _isDead; }
+	
+	//virtual void move();
+	//virtual void attack();
+	//virtual void dead();
+	//virtual void collision();
 
-	virtual void setPlayerMemoryLink(player* player) { _player = player; }
+	//virtual void setImage();
+	//virtual void setFrame();
+
+	//virtual ENEMYSTATE getState() { return _enemy.state; }
+
+	virtual void setObjectMgrMemoryLink(objectManager* objectMgr) { _objectMgr = objectMgr; }
 };

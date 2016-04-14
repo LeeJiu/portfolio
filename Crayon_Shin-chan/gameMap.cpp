@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "gameMap.h"
-#include "player.h"
-#include "enemyManager.h"
+#include "gameObject.h"
+#include "objectManager.h"
 
 
 gameMap::gameMap()
@@ -30,12 +30,19 @@ void gameMap::update()
 {
 	_settingCnt++;
 
-	//플레이어가 오른쪽 끝 화면에 닿으면
-	if (_player->getRect().right > WINSIZEX)
+	for (int i = 0; i < _objectMgr->getVObject().size(); ++i)
 	{
-		_saveX = _player->getRect().left;
-		
+		if (_objectMgr->getVObject()[i]->getType() == PLAYER)
+		{
+			if (_objectMgr->getVObject()[i]->getRect().right > WINSIZEX)
+			{
+				_saveX = _objectMgr->getVObject()[i]->getRect().left;
+				_saveIdx = i;
+				break;
+			}
+		}
 	}
+
 	move();
 
 	if (_settingCnt == 1)
@@ -51,6 +58,9 @@ void gameMap::render()
 	char str[128];
 	sprintf_s(str, "moveX : %d", _moveX);
 	TextOut(getMemDC(), 0, 60, str, strlen(str));
+
+	sprintf_s(str, "saveX : %d", _saveX);
+	TextOut(getMemDC(), 0, 80, str, strlen(str));
 }
 
 void gameMap::move()
@@ -64,7 +74,7 @@ void gameMap::move()
 			_settingCnt = 0;
 		}
 		_moveX += 5;
-		_player->setX(_saveX);
+		_objectMgr->getVObject()[_saveIdx]->setX(_saveX);
 	}
 }
 
@@ -74,42 +84,43 @@ void gameMap::setObject()
 	//적을 배치한다
 	if (_moveX == 0)
 	{
-		_enemyMgr->setEnemy(BOXBOY, 500, CENTERY);
+		//_objectMgr->setObject(BOXBOY, 500, CENTERY);
+		_objectMgr->setObject(CHOCOBEE, 500, CENTERY);
 	}
 	else if (_moveX == 570)
 	{
-		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 50, CENTERY);
-		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 100, CENTERY + 50);
-		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 150, CENTERY + 100);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 50, CENTERY);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 100, CENTERY + 50);
+		_objectMgr->setObject(CHOCOBEE, WINSIZEX - 150, CENTERY + 100);
 	}
-	else if (_moveX == 1145)
+	else if (_moveX <= 1150 && _moveX >= 1100)
 	{
-		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 50, CENTERY);
-		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 200, CENTERY + 50);
-		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 350, CENTERY + 100);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 50, CENTERY);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 200, CENTERY + 50);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 350, CENTERY + 100);
 	}
-	else if (_moveX == 1720)
+	else if (_moveX <= 1750 && _moveX >= 1700)
 	{
-		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 50, CENTERY);
-		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 200, CENTERY + 50);
-		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 350, CENTERY + 100);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 50, CENTERY);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 200, CENTERY + 50);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 350, CENTERY + 100);
 	}
-	else if (_moveX == 2295)
+	else if (_moveX <= 2300 && _moveX >= 2250)
 	{
-		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 50, CENTERY);
-		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 200, CENTERY + 50);
-		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 350, CENTERY + 100);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 50, CENTERY);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 200, CENTERY + 50);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 350, CENTERY + 100);
 	}
-	else if (_moveX == 2870)
+	else if (_moveX <= 2900 && _moveX >= 2850)
 	{
-		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 50, CENTERY);
-		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 200, CENTERY + 50);
-		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 350, CENTERY + 100);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 50, CENTERY);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 200, CENTERY + 50);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 350, CENTERY + 100);
 	}
-	else if (_moveX == 3360)
+	else if (_moveX >= 3350)
 	{
-		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 50, CENTERY);
-		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 200, CENTERY + 50);
-		_enemyMgr->setEnemy(BOXBOY, WINSIZEX - 350, CENTERY + 100);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 50, CENTERY);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 200, CENTERY + 50);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 350, CENTERY + 100);
 	}
 }

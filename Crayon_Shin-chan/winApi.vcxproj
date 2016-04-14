@@ -81,9 +81,11 @@
   <ItemGroup>
     <ClInclude Include="animation.h" />
     <ClInclude Include="boxboy.h" />
+    <ClInclude Include="chocobee.h" />
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="enemy.h" />
-    <ClInclude Include="enemyManager.h" />
+    <ClInclude Include="gameObject.h" />
+    <ClInclude Include="objectManager.h" />
     <ClInclude Include="gameMap.h" />
     <ClInclude Include="gameNode.h" />
     <ClInclude Include="gameStudy.h" />
@@ -104,8 +106,10 @@
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="boxboy.cpp" />
+    <ClCompile Include="chocobee.cpp" />
     <ClCompile Include="enemy.cpp" />
-    <ClCompile Include="enemyManager.cpp" />
+    <ClCompile Include="gameObject.cpp" />
+    <ClCompile Include="objectManager.cpp" />
     <ClCompile Include="gameMap.cpp" />
     <ClCompile Include="gameNode.cpp" />
     <ClCompile Include="gameStudy.cpp" />

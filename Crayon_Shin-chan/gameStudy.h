@@ -2,15 +2,13 @@
 
 #include "gameNode.h"
 #include "gameMap.h"
-#include "player.h"
-#include "enemyManager.h"
+#include "objectManager.h"
 
 class gameStudy : public gameNode
 {
 private:
 	gameMap* _map;
-	player* _player;
-	enemyManager* _enemyMgr;
+	objectManager* _objectMgr;
 
 public:
 	gameStudy();

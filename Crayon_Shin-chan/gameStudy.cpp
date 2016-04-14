@@ -18,29 +18,19 @@ HRESULT gameStudy::init()
 	_map = new gameMap;
 	_map->init();
 	
-	_player = new player;
-	_player->init();
+	_objectMgr = new objectManager;
+	_objectMgr->init();
 
-	_enemyMgr = new enemyManager;
-	_enemyMgr->init();
-
-	_map->setPlayerMemoryLink(_player);
-	_map->setEnemyMgrMemoryLink(_enemyMgr);
-
-	_player->setMapMemoryLink(_map);
-	_player->setEnemyMgrMemoryLink(_enemyMgr);
-
-	_enemyMgr->setPlayerMemoryLink(_player);
+	_map->setObjectMgrMemoryLink(_objectMgr);
+	_objectMgr->setMapMemoryLink(_map);
 
 	return S_OK;
 }
 
 void gameStudy::release()
 {
-	_player->release();
 	SAFE_DELETE(_map);
-	SAFE_DELETE(_player);
-	SAFE_DELETE(_enemyMgr);
+	SAFE_DELETE(_objectMgr);
 
 	gameNode::release();
 }
@@ -48,8 +38,7 @@ void gameStudy::release()
 void gameStudy::update()
 {
 	_map->update();
-	_player->update();
-	_enemyMgr->update();
+	_objectMgr->update();
 
 	gameNode::update();
 }
@@ -63,8 +52,7 @@ void gameStudy::render()
 	//이 사이에서 그려주면 됨.
 
 	_map->render();
-	_player->render();
-	_enemyMgr->render();
+	_objectMgr->render();
 
 	//마우스 좌표 위치 보기용
 	char str[128];

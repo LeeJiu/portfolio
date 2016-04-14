@@ -1,25 +1,26 @@
 #include "stdafx.h"
-#include "boxboy.h"
+#include "chocobee.h"
 #include "objectManager.h"
 
-boxboy::boxboy()
+
+chocobee::chocobee()
 {
 }
 
 
-boxboy::~boxboy()
+chocobee::~chocobee()
 {
 }
 
-HRESULT boxboy::init(int x, int y)
+HRESULT chocobee::init(int x, int y)
 {
-	IMAGEMANAGER->addFrameImage("boxboy_attack", "image/enemy/boxboy_attack.bmp", 344, 130, 8, 2, true, 0xff00ff);
+	IMAGEMANAGER->addFrameImage("chocobee_run", "image/enemy/boxboy_run.bmp", 308, 120, 4, 2, true, 0xff00ff);
 
 	_enemy.charater = new image;
-	_enemy.charater->init("image/enemy/boxboy_idle.bmp", 180, 130, 4, 2, true, 0xff00ff);
+	_enemy.charater->init("image/enemy/chocobee_idle.bmp", 80, 90, 1, 1, true, 0xff00ff);
 
 	_enemy.state = IDLE;
-	_enemy.type = BOXBOY;
+	_enemy.type = CHOCOBEE;
 	_enemy.isRight = false;
 	_enemy.pt.x = x;
 	_enemy.pt.y = y;
@@ -39,12 +40,12 @@ HRESULT boxboy::init(int x, int y)
 	return S_OK;
 }
 
-void boxboy::release()
+void chocobee::release()
 {
 	SAFE_DELETE(_hpBar);
 }
 
-void boxboy::update()
+void chocobee::update()
 {
 	if (KEYMANAGER->isOnceKeyDown('Y'))
 		_test = !_test;
@@ -66,26 +67,35 @@ void boxboy::update()
 	_hpBar->setPosition(_enemy.coll.left, _enemy.coll.top - 5);
 	if (_enemy.state != DEAD && _enemy.state != NONE)
 	{
-		move();
-		attack();
+		if (_enemy.state == RUN)
+		{
+			//런 상태로 어택!
+			move();
+			attack();
+		}
+		else if (_enemy.state == IDLE)
+		{
+			//다가왔을 때 폭발 어택!
+			attack();
+		}
 	}
 	setImage();
 }
 
-void boxboy::render()
+void chocobee::render()
 {
-	if(_test)
+	if (_test)
 		Rectangle(getMemDC(), _enemy.coll.left, _enemy.coll.top, _enemy.coll.right, _enemy.coll.bottom);
 	_enemy.charater->frameRender(getMemDC(), _enemy.coll.left, _enemy.coll.top, _enemy.charater->getFrameX(), _enemy.charater->getFrameY());
 	_hpBar->render();
 }
 
-void boxboy::move()
+void chocobee::move()
 {
 	if (MY_UTIL::getDistance(_enemy.pt.x, _enemy.pt.y, _playerX, _playerY) < _range)
 	{
-		if (_enemy.state != ATTACK)
-			_enemy.state = RUN;
+		//if (_enemy.state != ATTACK)
+		//	_enemy.state = RUN;
 
 		//플레이어 쪽으로 이동
 		if (_enemy.pt.x > _playerX + 40)
@@ -111,19 +121,19 @@ void boxboy::move()
 	}
 	else
 	{
-		_enemy.state = IDLE;
+		//플레이어랑 멀어지면 죽는다
+		_enemy.state = DEAD;
 	}
-	
+
 	_enemy.coll = RectMakeCenter(_enemy.pt.x, _enemy.pt.y, _enemy.charater->getFrameWidth(), _enemy.charater->getFrameHeight());
 }
 
-void boxboy::attack()
+void chocobee::attack()
 {
 	if (_enemy.pt.x < _playerX + 50 && _enemy.pt.x > _playerX - 50
 		&& _enemy.pt.y < _playerY + 5 && _enemy.pt.y > _playerY - 5
-		&& _enemy.state != ATTACK)
+		&& _enemy.state == RUN)
 	{
-		_enemy.state = ATTACK;
 		if (_enemy.pt.x > _playerX)
 		{
 			_enemy.isRight = false;
@@ -135,15 +145,29 @@ void boxboy::attack()
 			_curFrameX = 0;
 		}
 
-		int width = IMAGEMANAGER->findImage("boxboy_attack")->getFrameWidth();
-		int height = IMAGEMANAGER->findImage("boxboy_attack")->getFrameHeight();
+		int width = IMAGEMANAGER->findImage("chocobee_run")->getFrameWidth();
+		int height = IMAGEMANAGER->findImage("chocobee_run")->getFrameHeight();
 		_enemy.coll = RectMakeCenter(_enemy.pt.x, _enemy.pt.y, width, height);
+		collision();
+	}
+	else if(_enemy.pt.x < _playerX + 50 && _enemy.pt.x > _playerX - 50
+		&& _enemy.pt.y < _playerY + 5 && _enemy.pt.y > _playerY - 5
+		&& _enemy.state == IDLE)
+	{
+		//idle 상태일 때 플레이어가 어텍하면 터진다
 		collision();
 	}
 }
 
-void boxboy::damage(int damage)
+void chocobee::damage(int damage)
 {
+	if (_enemy.curHp == _enemy.maxHp)
+	{
+		_enemy.state = ATTACK;
+		_curFrameX = 0;
+		_curFrameY = 0;
+	}
+
 	_enemy.curHp -= damage;
 	_hpBar->decreaseBar(damage);
 	if (_enemy.curHp <= 0)
@@ -157,54 +181,61 @@ void boxboy::damage(int damage)
 	}
 }
 
-void boxboy::dead()
+void chocobee::dead()
 {
 	_isDead = true;
 }
 
-void boxboy::collision()
+void chocobee::collision()
 {
 	if (IntersectRect(&RectMake(0, 0, 0, 0), &_enemy.coll, &_objectMgr->getVObject()[_saveIdx]->getRect()))
 	{
-		//if (_player->getState() != DAMAGE && _player->getState() != DEAD)
-		//	_player->damage(20);
-		//else if (_player->getState() == P_DEAD)
-		//	_enemy.state = E_IDLE;
-
-		if (_objectMgr->getVObject()[_saveIdx]->getState() != DAMAGE
-			&& _objectMgr->getVObject()[_saveIdx]->getState() != DEAD)
-			_objectMgr->getVObject()[_saveIdx]->damage(20);
+		if (_enemy.state == RUN)
+		{
+			if (_objectMgr->getVObject()[_saveIdx]->getState() != DAMAGE
+				&& _objectMgr->getVObject()[_saveIdx]->getState() != DEAD)
+				_objectMgr->getVObject()[_saveIdx]->damage(20);
+		}
+		else if (_enemy.state == IDLE)
+		{
+			if (_objectMgr->getVObject()[_saveIdx]->getState() == ATTACK)
+			{
+				_objectMgr->getVObject()[_saveIdx]->damage(50);
+			}
+		}
 	}
 }
 
-void boxboy::setImage()
+void chocobee::setImage()
 {
 	switch (_enemy.state)
 	{
 	case IDLE:
 	{
-		_enemy.charater->init("image/enemy/boxboy_idle.bmp", 180, 130, 4, 2, true, 0xff00ff);
+		_enemy.charater->init("image/enemy/chocobee_idle.bmp", 80, 90, 1, 1, true, 0xff00ff);
 		_enemy.charater->setFrameX(_curFrameX);
 		setFrame();
 	}
 	break;
 	case RUN:
 	{
-		_enemy.charater->init("image/enemy/boxboy_run.bmp", 330, 154, 6, 2, true, 0xff00ff);
+		_enemy.charater->init("image/enemy/chocobee_run.bmp", 308, 120, 4, 2, true, 0xff00ff);
 		_enemy.charater->setFrameX(_curFrameX);
+		_enemy.charater->setFrameY(_curFrameY);
 		setFrame();
 	}
 	break;
 	case ATTACK:
 	{
-		_enemy.charater->init("image/enemy/boxboy_attack.bmp", 344, 130, 8, 2, true, 0xff00ff);
+		_enemy.charater->init("image/enemy/chocobee_attack.bmp", 240, 90, 3, 1, true, 0xff00ff);
 		_enemy.charater->setFrameX(_curFrameX);
+		_enemy.charater->setFrameY(_curFrameY);
 		setFrame();
 	}
 	break;
 	case DEAD:
 	{
-		_enemy.charater->init("image/enemy/boxboy_dead.bmp", 660, 200, 4, 2, true, 0xff00ff);
+		_enemy.charater->init("image/enemy/chocobee_dead.bmp", 244, 126, 4, 2, true, 0xff00ff);
 		_enemy.charater->setFrameX(_curFrameX);
 		setFrame();
 	}
@@ -214,7 +245,7 @@ void boxboy::setImage()
 	}
 }
 
-void boxboy::setFrame()
+void chocobee::setFrame()
 {
 	if (_enemy.isRight)
 	{
@@ -228,7 +259,9 @@ void boxboy::setFrame()
 			{
 				if (_enemy.state == ATTACK)
 				{
-					_enemy.state = IDLE;
+					_enemy.state = RUN;
+					_curFrameX = 0;
+					_curFrameY = 0;
 					return;
 				}
 				else if (_enemy.state == DEAD)
@@ -257,7 +290,7 @@ void boxboy::setFrame()
 			{
 				if (_enemy.state == ATTACK)
 				{
-					_enemy.state = IDLE;
+					_enemy.state = RUN;
 					return;
 				}
 				else if (_enemy.state == DEAD)

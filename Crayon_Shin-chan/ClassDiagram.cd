@@ -66,7 +66,7 @@
   <Class Name="progressBar" Collapsed="true">
     <Position X="8.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAYBAQAAAAAAAAGAQAAQBAAAAIAACAAAAEUAAA=</HashCode>
+      <HashCode>EAABAAAYAASQAgABAAAAgAACAASAAAIAICAAACIcAAA=</HashCode>
       <FileName>progressBar.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -80,71 +80,102 @@
   <Class Name="gameStudy" Collapsed="true">
     <Position X="6.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAAgAAAAAAAAgACAAAAAAAAAIAAEAAAAAUAAA=</HashCode>
+      <HashCode>EAAAAAAAAgAAAAAAAAgAAAAAAAABAAIAAEAAAAAUAAA=</HashCode>
       <FileName>gameStudy.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="player" Collapsed="true">
-    <Position X="11" Y="1.75" Width="1.5" />
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <InheritanceLine Type="gameObject" ManuallyRouted="true">
+      <Path>
+        <Point X="2.75" Y="2.441" />
+        <Point X="2.75" Y="2.679" />
+        <Point X="1.912" Y="2.679" />
+        <Point X="1.912" Y="2.75" />
+        <Point X="1.25" Y="2.75" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>kAIAgAAAACAAgACQAAAECAAAAAAAAEKJAAAAAmAUAAA=</HashCode>
+      <HashCode>UAAAgCAAECAAkAGQAQAGCgAAARABAAKJBAAAAGAUAAA=</HashCode>
       <FileName>player.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="gameMap" Collapsed="true">
-    <Position X="2" Y="1.75" Width="1.5" />
+    <Position X="4.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAkABAAAACAAAAICAAAAAAAAAIAAEAgAAAUAAA=</HashCode>
+      <HashCode>EAAAAAAkABAIEACAAAAICAIAAAABAAIAAEAgAAAUAAA=</HashCode>
       <FileName>gameMap.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="boxboy" Collapsed="true">
-    <Position X="13.25" Y="3.25" Width="1.5" />
+    <Position X="3.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAgAAAAAAAgACABAAAAAAACAAAAAKIAAAAAAAUAAA=</HashCode>
+      <HashCode>EAAAgAAgAAAAgAGAFQAGAAAACAAAAAKIAAAAAGAUAAA=</HashCode>
       <FileName>boxboy.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="enemy" Collapsed="true">
-    <Position X="13.25" Y="1.75" Width="1.5" />
+    <Position X="3.5" Y="2.75" Width="1.5" />
+    <InheritanceLine Type="gameObject" ManuallyRouted="true">
+      <Path>
+        <Point X="2.75" Y="2.441" />
+        <Point X="2.75" Y="2.668" />
+        <Point X="4.25" Y="2.668" />
+        <Point X="4.25" Y="2.75" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>EAAAgAAAAAAAgACAAAAAAAAAAIABAAKIAAAAAAAUAAI=</HashCode>
+      <HashCode>EAAAAAAAECAAgAAAAAAGCgAAAZABAAIABAAAAGAUAAI=</HashCode>
       <FileName>enemy.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="enemyManager" Collapsed="true">
-    <Position X="4.25" Y="1.75" Width="1.5" />
+  <Class Name="gameObject" Collapsed="true">
+    <Position X="2" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAgAAgAAAAAAABIAiCCAAAAAAAAAIEAAAAAIAUAIA=</HashCode>
-      <FileName>enemyManager.h</FileName>
+      <HashCode>EAAAAAAAACAAgAAAAAAGAAAAERAAwAIAAgCAAGAUAAA=</HashCode>
+      <FileName>gameObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="objectManager" Collapsed="true">
+    <Position X="10.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>FAIAACAAAAAAAAAQAAFACAIAACAAAAIAAABAAgAUAAA=</HashCode>
+      <FileName>objectManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="tagPlayer" Collapsed="true">
     <Position X="17.5" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAABAAAEAFQABCAAAAAAA=</HashCode>
+      <HashCode>EAIAAAAAAAAQAAAAAAAAAAAAABAAAEAFQAAAAABIAAA=</HashCode>
       <FileName>player.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="tagEnemy" Collapsed="true">
     <Position X="15.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAABAAAEAEQABAAAAAAAI=</HashCode>
+      <HashCode>EAAAAAAAAAAQAAAAAAAAAAAAABAAAEAEQAAAAABAAAI=</HashCode>
       <FileName>enemy.h</FileName>
     </TypeIdentifier>
   </Struct>
-  <Enum Name="PLAYERSTATE" Collapsed="true">
-    <Position X="17.5" Y="4" Width="1.5" />
+  <Struct Name="tagCharacter" Collapsed="true">
+    <Position X="17.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAEAAAAAAAAAAAAAAAAgAAAAACgAAAAAAAAEAAAAgA=</HashCode>
-      <FileName>player.h</FileName>
+      <HashCode>EAIAAAAAAACQAAAAAAAAAAAAABABAEAEQAAAAABIAAA=</HashCode>
+      <FileName>gameObject.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="STATE" Collapsed="true">
+    <Position X="15.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAQAAgAAAAACgAAAAAAAAEAAAAgA=</HashCode>
+      <FileName>gameObject.h</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="ENEMYSTATE" Collapsed="true">
-    <Position X="15.75" Y="4" Width="1.5" />
+  <Enum Name="TYPE" Collapsed="true">
+    <Position X="17.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAEAAAAAAAAAAAAAAAAgAAAAACgAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>enemy.h</FileName>
+      <HashCode>AAAAAAAAAAEAAABAAAAAAAAAAAAAAAAACAAAAEAAgAA=</HashCode>
+      <FileName>gameObject.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="맑은 고딕" Size="9" />

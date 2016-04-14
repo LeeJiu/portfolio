@@ -2,28 +2,16 @@
 
 #pragma warning(disable : 4996)
 
-#include "gameNode.h"
+#include "gameObject.h"
 #include "progressBar.h"
 
-class gameMap;
-class enemyManager;
-
-enum PLAYERSTATE
-{
-	P_IDLE,
-	P_RUN,
-	P_ATTACK,
-	P_SKILL1,
-	P_SKILL2,
-	P_DAMAGE,
-	P_DEAD
-};
+class objectManager;
 
 struct tagPlayer
 {
 	image* player;
 	image* shadow;
-	PLAYERSTATE state;
+	STATE state;
 	RECT coll;
 	POINT pt;
 	int curHp, curMp, maxHp, maxMp;
@@ -31,19 +19,17 @@ struct tagPlayer
 };
 
 
-class player : public gameNode
+class player : public gameObject
 {
 private:
-	tagPlayer _player;
-	int _count;
-	int _curFrameX, _curFrameY;
+	tagCharacter _player;
 
 	progressBar* _hpBar;
 	progressBar* _mpBar;
 
-	gameMap* _gameMap;
-	enemyManager* _enemyMgr;
+	objectManager* _enemy;
 
+	bool _isDead;
 	bool _test;
 
 public:
@@ -51,6 +37,7 @@ public:
 	~player();
 
 	HRESULT init();
+	HRESULT init(int x, int y);
 	void release();
 	void update();
 	void render();
@@ -66,13 +53,17 @@ public:
 	int getX() { return _player.pt.x; }
 	int getY() { return _player.pt.y; }
 	RECT getRect() { return _player.coll; }
+	TYPE getType() { return _player.type; }
+	STATE getState() { return _player.state; }
 
 	void setX(int x) { _player.pt.x = x + (_player.coll.right - _player.coll.left) / 2; }
+	void setY(int y) { _player.pt.y = y + (_player.coll.bottom - _player.coll.top) / 2; }
+
+	bool isDead() { return _isDead; }
 
 	void setFrame();
 	void setImage();
 
-	void setEnemyMgrMemoryLink(enemyManager* enemyMgr) { _enemyMgr = enemyMgr; }
-	void setMapMemoryLink(gameMap* gameMap) { _gameMap = gameMap; }
+	void setObjectMgrMemoryLink(objectManager* enemy) { _enemy = enemy; }
 };
 

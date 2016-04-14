@@ -11,6 +11,11 @@ enemy::~enemy()
 {
 }
 
+HRESULT enemy::init()
+{
+	return S_OK;
+}
+
 HRESULT enemy::init(int x, int y)
 {
 
@@ -30,30 +35,24 @@ void enemy::render()
 {
 }
 
-void enemy::move()
+int enemy::getX()
+{
+	return 0;
+}
+
+int enemy::getY()
+{
+	return 0;
+}
+
+void enemy::setX(int x)
 {
 }
 
-void enemy::attack()
+void enemy::setY(int y)
 {
 }
 
 void enemy::damage(int damage)
-{
-}
-
-void enemy::dead()
-{
-}
-
-void enemy::collision()
-{
-}
-
-void enemy::setImage()
-{
-}
-
-void enemy::setFrame()
 {
 }

@@ -1,14 +1,11 @@
 #pragma once
 #include "enemy.h"
 
-
-class boxboy : public enemy
+class chocobee : public enemy
 {
-private:
-
 public:
-	boxboy();
-	~boxboy();
+	chocobee();
+	~chocobee();
 
 	HRESULT init(int x, int y);
 	void release();
