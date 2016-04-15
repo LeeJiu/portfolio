@@ -53,6 +53,7 @@ public:
 	
 	virtual void damage(int damage);
 	virtual bool isDead() { return _isDead; }
+	virtual bool isRight() { return _enemy.isRight; }
 	
 	//virtual void move();
 	//virtual void attack();

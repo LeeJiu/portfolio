@@ -80,11 +80,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animation.h" />
+    <ClInclude Include="attackObj.h" />
     <ClInclude Include="boxboy.h" />
     <ClInclude Include="chocobee.h" />
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="gameObject.h" />
+    <ClInclude Include="hip.h" />
     <ClInclude Include="objectManager.h" />
     <ClInclude Include="gameMap.h" />
     <ClInclude Include="gameNode.h" />
@@ -105,10 +107,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
+    <ClCompile Include="attackObj.cpp" />
     <ClCompile Include="boxboy.cpp" />
     <ClCompile Include="chocobee.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="gameObject.cpp" />
+    <ClCompile Include="hip.cpp" />
     <ClCompile Include="objectManager.cpp" />
     <ClCompile Include="gameMap.cpp" />
     <ClCompile Include="gameNode.cpp" />

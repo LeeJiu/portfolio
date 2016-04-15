@@ -193,7 +193,7 @@ void player::damage(int damage)
 void player::dead()
 {
 	_player.state = DEAD;
-	_isDead = true;
+	//_isDead = true;
 }
 
 void player::collision()
@@ -207,7 +207,12 @@ void player::collision()
 		{
 			if (_player.coll.bottom <= _enemy->getVObject()[i]->getRect().bottom + 10
 				&& _player.coll.bottom >= _enemy->getVObject()[i]->getRect().bottom - 10)
-				_enemy->getVObject()[i]->damage(50);
+			{
+				if(_player.isRight != _enemy->getVObject()[i]->isRight())
+					_enemy->getVObject()[i]->damage(50);
+				else
+					_enemy->getVObject()[i]->damage(80);
+			}
 		}
 	}
 }
@@ -252,7 +257,7 @@ void player::setFrame()
 			_curFrameX--;
 			if (_curFrameX < 0)
 			{
-				if (_player.state == ATTACK)
+				if (_player.state == ATTACK || _player.state == DAMAGE)
 				{
 					_player.state = IDLE;
 					return;

@@ -60,6 +60,7 @@ public:
 	void setY(int y) { _player.pt.y = y + (_player.coll.bottom - _player.coll.top) / 2; }
 
 	bool isDead() { return _isDead; }
+	bool isRight() { return _player.isRight; }
 
 	void setFrame();
 	void setImage();

@@ -36,7 +36,7 @@ HRESULT chocobee::init(int x, int y)
 	_hpBar->init("enemy_bg", "enemy_hp", _enemy.maxHp, _enemy.curHp);
 	_hpBar->setBar(_enemy.coll.left, _enemy.coll.top - 5, _enemy.charater->getFrameWidth(), 5);
 
-	_range = 200.f;
+	_range = 250.f;
 
 	return S_OK;
 }
@@ -85,10 +85,10 @@ void chocobee::update()
 
 void chocobee::render()
 {
-	if (_test)
-		Rectangle(getMemDC(), _enemy.coll.left, _enemy.coll.top, _enemy.coll.right, _enemy.coll.bottom);
+	Rectangle(getMemDC(), _enemy.coll.left, _enemy.coll.top, _enemy.coll.right, _enemy.coll.bottom);
 	_enemy.charater->frameRender(getMemDC(), _enemy.coll.left, _enemy.coll.top, _enemy.charater->getFrameX(), _enemy.charater->getFrameY());
-	_hpBar->render();
+	if(_enemy.state == RUN)
+		_hpBar->render();
 }
 
 void chocobee::move()

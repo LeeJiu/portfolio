@@ -126,6 +126,12 @@
     <ClInclude Include="chocobee.h">
       <Filter>gameStudy\object\enemy</Filter>
     </ClInclude>
+    <ClInclude Include="attackObj.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="hip.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -187,6 +193,12 @@
     </ClCompile>
     <ClCompile Include="chocobee.cpp">
       <Filter>gameStudy\object\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="attackObj.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="hip.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

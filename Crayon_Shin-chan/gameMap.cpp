@@ -116,41 +116,46 @@ void gameMap::setObject()
 	{
 		_objectMgr->setObject(BOXBOY, 500, CENTERY);
 		//_objectMgr->setObject(CHOCOBEE, 500, CENTERY);
+		//_objectMgr->setObject(HIP, 500, CENTERY);
 	}
 	else if (_moveX == 570)
 	{
-		_objectMgr->setObject(BOXBOY, WINSIZEX - 50, CENTERY);
-		_objectMgr->setObject(BOXBOY, WINSIZEX - 100, CENTERY + 50);
-		_objectMgr->setObject(CHOCOBEE, WINSIZEX - 150, CENTERY + 100);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 200, CENTERY + 100);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 350, CENTERY + 200);
+		_objectMgr->setObject(CHOCOBEE, 300, 200);
 	}
 	else if (_moveX <= 1150 && _moveX >= 1100)
 	{
 		_objectMgr->setObject(BOXBOY, WINSIZEX - 50, CENTERY);
-		_objectMgr->setObject(BOXBOY, WINSIZEX - 200, CENTERY + 50);
-		_objectMgr->setObject(BOXBOY, WINSIZEX - 350, CENTERY + 100);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 200, CENTERY + 100);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 350, CENTERY + 200);
 	}
 	else if (_moveX <= 1750 && _moveX >= 1700)
 	{
-		_objectMgr->setObject(BOXBOY, WINSIZEX - 50, CENTERY);
-		_objectMgr->setObject(BOXBOY, WINSIZEX - 200, CENTERY + 50);
-		_objectMgr->setObject(BOXBOY, WINSIZEX - 350, CENTERY + 100);
+		_objectMgr->setObject(CHOCOBEE, WINSIZEX - 100, WINSIZEY - 100);
+		_objectMgr->setObject(BOXBOY, CENTERX, CENTERY);
+		_objectMgr->setObject(BOXBOY, CENTERX + 100, CENTERY + 50);
+		_objectMgr->setObject(BOXBOY, CENTERX - 50, CENTERY + 100);
 	}
 	else if (_moveX <= 2300 && _moveX >= 2250)
 	{
-		_objectMgr->setObject(BOXBOY, WINSIZEX - 50, CENTERY);
-		_objectMgr->setObject(BOXBOY, WINSIZEX - 200, CENTERY + 50);
-		_objectMgr->setObject(BOXBOY, WINSIZEX - 350, CENTERY + 100);
+		_objectMgr->setObject(CHOCOBEE, WINSIZEX - 50, CENTERY);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 200, CENTERY);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 200, CENTERY + 100);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 200, CENTERY + 200);
 	}
 	else if (_moveX <= 2900 && _moveX >= 2850)
 	{
-		_objectMgr->setObject(BOXBOY, WINSIZEX - 50, CENTERY);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 100, CENTERY);
 		_objectMgr->setObject(BOXBOY, WINSIZEX - 200, CENTERY + 50);
-		_objectMgr->setObject(BOXBOY, WINSIZEX - 350, CENTERY + 100);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 100, CENTERY + 100);
+		_objectMgr->setObject(BOXBOY, WINSIZEX - 200, CENTERY + 150);
 	}
 	else if (_moveX >= 3350)
 	{
-		_objectMgr->setObject(BOXBOY, WINSIZEX - 50, CENTERY);
-		_objectMgr->setObject(BOXBOY, WINSIZEX - 200, CENTERY + 50);
-		_objectMgr->setObject(BOXBOY, WINSIZEX - 350, CENTERY + 100);
+		_objectMgr->setObject(BOXBOY, CENTERX, CENTERY);
+		_objectMgr->setObject(BOXBOY, CENTERX, CENTERY + 100);
+		_objectMgr->setObject(BOXBOY, CENTERX, CENTERY + 200);
+		_objectMgr->setObject(HIP, WINSIZEX - 50, CENTERY);
 	}
 }

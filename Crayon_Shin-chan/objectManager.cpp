@@ -71,9 +71,13 @@ void objectManager::setObject(TYPE type, int x, int y)
 		_obj->setObjectMgrMemoryLink(this);
 		_vObject.push_back(_obj);
 		break;
-	/*case HIP:
+	case HIP:
+		_obj = new hip;
+		_obj->init(x, y);
+		_obj->setObjectMgrMemoryLink(this);
+		_vObject.push_back(_obj);
 		break;
-	case BOSS:
+	/*case BOSS:
 		break;
 	default:
 		break;*/

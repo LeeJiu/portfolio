@@ -4,6 +4,7 @@
 #include "player.h"
 #include "boxboy.h"
 #include "chocobee.h"
+#include "hip.h"
 #include <vector>
 #include <algorithm>
 
