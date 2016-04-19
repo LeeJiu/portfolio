@@ -52,6 +52,9 @@
     <Filter Include="gameStudy\object\enemy">
       <UniqueIdentifier>{d1d03c54-a451-45d7-ae1e-273b2df1a7df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gameStudy\scene">
+      <UniqueIdentifier>{6b4237bb-a0c8-4784-b765-161b8e8d1d20}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -126,11 +129,11 @@
     <ClInclude Include="chocobee.h">
       <Filter>gameStudy\object\enemy</Filter>
     </ClInclude>
-    <ClInclude Include="attackObj.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="hip.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>gameStudy\object\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="gameScene.h">
+      <Filter>gameStudy\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -194,11 +197,11 @@
     <ClCompile Include="chocobee.cpp">
       <Filter>gameStudy\object\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="attackObj.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="hip.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>gameStudy\object\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="gameScene.cpp">
+      <Filter>gameStudy\scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -23,6 +23,10 @@ private:
 	gameObject* _obj;
 	gameMap* _gameMap;
 
+	SCENE _trigger;
+	int _enemyCnt;
+	bool _bossDead;
+
 public:
 	objectManager();
 	~objectManager();
@@ -34,7 +38,10 @@ public:
 	
 	void setObject(TYPE type, int x, int y);
 
-	static bool Compare(gameObject* start, gameObject*	end)
+	SCENE getTrigger() { return _trigger; }
+	void setTrigger(SCENE trigger) { _trigger = trigger; }
+
+	static bool Compare(gameObject* start, gameObject* end)
 	{
 		return start->getRect().bottom < end->getRect().bottom;
 	}

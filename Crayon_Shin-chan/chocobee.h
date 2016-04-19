@@ -1,8 +1,18 @@
 #pragma once
 #include "enemy.h"
 
+enum CHOCOBEESTATE
+{
+	ITEM_HP,
+	ITEM_MP,
+	ITEM_NONE
+};
+
 class chocobee : public enemy
 {
+private:
+	CHOCOBEESTATE _chocobeeState;
+
 public:
 	chocobee();
 	~chocobee();
@@ -14,8 +24,8 @@ public:
 
 	int getX() { return _enemy.pt.x; }
 	int getY() { return _enemy.pt.y; }
-	void setX(int x) {}
-	void setY(int y) {}
+	//void setX(int x) {}
+	//void setY(int y) {}
 
 	void move();
 	void attack();

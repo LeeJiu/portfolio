@@ -10,6 +10,8 @@
 //실수 대소비교하기 위한 변수 (가장 작은 단위라고 보자)
 #define FLOAT_EPSILON 0.001f 
 
+enum SCENE { TITLE, GAMESTART, GAME, GAMEOVER, CLEAR, GAMENONE };
+
 namespace MY_UTIL
 {
 	//거리 구하는 함수

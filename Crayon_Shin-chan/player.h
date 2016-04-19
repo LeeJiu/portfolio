@@ -7,17 +7,6 @@
 
 class objectManager;
 
-struct tagPlayer
-{
-	image* player;
-	image* shadow;
-	STATE state;
-	RECT coll;
-	POINT pt;
-	int curHp, curMp, maxHp, maxMp;
-	bool isRight;
-};
-
 
 class player : public gameObject
 {
@@ -29,6 +18,8 @@ private:
 
 	objectManager* _enemy;
 
+	float _time;
+	int _skillCnt;
 	bool _isDead;
 	bool _test;
 
@@ -45,9 +36,10 @@ public:
 	void move();
 	void attack();
 	void damage(int damage);
+	void recover(int recovery, int type);
 	void dead();
-	//void skill();		//보류
-	void collision();	//인자 : 플레이어의 렉트, 에너미의 렉트
+	void skill(int skillNum);		//보류
+	void collision();				//인자 : 플레이어의 렉트, 에너미의 렉트
 
 	//엑세스 함수 / 테스트용
 	int getX() { return _player.pt.x; }
