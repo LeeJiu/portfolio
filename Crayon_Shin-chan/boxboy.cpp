@@ -14,9 +14,12 @@ boxboy::~boxboy()
 HRESULT boxboy::init(int x, int y)
 {
 	IMAGEMANAGER->addFrameImage("boxboy_attack", "image/enemy/boxboy_attack.bmp", 344, 130, 8, 2, true, 0xff00ff);
+	IMAGEMANAGER->addImage("shadow", "image/effect/shadow.bmp", 52, 31, true, 0xff00ff);
 
 	_enemy.charater = new image;
 	_enemy.charater->init("image/enemy/boxboy_idle.bmp", 180, 130, 4, 2, true, 0xff00ff);
+
+	_enemy.shadow = IMAGEMANAGER->findImage("shadow");
 
 	_enemy.state = IDLE;
 	_enemy.type = BOXBOY;
@@ -67,14 +70,19 @@ void boxboy::update()
 	if (_enemy.state != DEAD && _enemy.state != NONE)
 	{
 		move();
-		attack();
+		if(_objectMgr->getVObject()[_saveIdx]->getState() == IDLE)
+			attack();
 	}
 	setImage();
 }
 
 void boxboy::render()
 {
-	Rectangle(getMemDC(), _enemy.coll.left, _enemy.coll.top, _enemy.coll.right, _enemy.coll.bottom);
+	if(_enemy.state == DEAD)
+		_enemy.shadow->alphaRender(getMemDC(), _enemy.pt.x + _enemy.charater->getFrameWidth() / 6, _enemy.pt.y + _enemy.charater->getFrameHeight() / 3, 128);
+	else
+		_enemy.shadow->alphaRender(getMemDC(), _enemy.pt.x - _enemy.charater->getFrameWidth() / 2, _enemy.pt.y + _enemy.charater->getFrameHeight() / 4, 128);
+	//Rectangle(getMemDC(), _enemy.coll.left, _enemy.coll.top, _enemy.coll.right, _enemy.coll.bottom);
 	_enemy.charater->frameRender(getMemDC(), _enemy.coll.left, _enemy.coll.top, _enemy.charater->getFrameX(), _enemy.charater->getFrameY());
 	_hpBar->render();
 }
@@ -145,7 +153,7 @@ void boxboy::damage(int damage)
 {
 	_enemy.curHp -= damage;
 	_hpBar->decreaseBar(damage);
-	if (_enemy.curHp <= 0)
+	if (_enemy.curHp < 0)
 	{
 		_enemy.curHp = 0;
 		_enemy.state = DEAD;
@@ -166,11 +174,6 @@ void boxboy::collision()
 {
 	if (IntersectRect(&RectMake(0, 0, 0, 0), &_enemy.coll, &_objectMgr->getVObject()[_saveIdx]->getRect()))
 	{
-		//if (_player->getState() != DAMAGE && _player->getState() != DEAD)
-		//	_player->damage(20);
-		//else if (_player->getState() == P_DEAD)
-		//	_enemy.state = E_IDLE;
-
 		if (_objectMgr->getVObject()[_saveIdx]->getState() != DAMAGE
 			&& _objectMgr->getVObject()[_saveIdx]->getState() != DEAD)
 			_objectMgr->getVObject()[_saveIdx]->damage(20);

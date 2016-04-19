@@ -14,6 +14,8 @@ objectManager::~objectManager()
 
 HRESULT objectManager::init()
 {
+	_trigger = GAME;
+	_bossDead = false;
 	setObject(PLAYER, 0, 0);
 	return S_OK;
 }
@@ -30,10 +32,44 @@ void objectManager::release()
 
 void objectManager::update()
 {
-	for (_viObject = _vObject.begin(); _viObject != _vObject.end(); ++_viObject)
+	/*for (_viObject = _vObject.begin(); _viObject != _vObject.end(); ++_viObject)
 	{
 		(*_viObject)->update();
+	}*/
+	_enemyCnt = 0;
+
+	for (_viObject = _vObject.begin(); _viObject != _vObject.end(); ++_viObject)
+	{
+		if ((*_viObject)->getType() == PLAYER)
+		{
+			if ((*_viObject)->isDead())
+			{
+				_trigger = GAMEOVER;
+				return;
+			}
+		}
+		if ((*_viObject)->getType() == HIP)
+		{
+			if ((*_viObject)->isDead())
+			{
+				//_trigger = CLEAR;
+				//return;
+				_bossDead = true;
+			}
+		}
+		else if ((*_viObject)->getType() != HIP
+			&& (*_viObject)->getType() != PLAYER)
+		{
+			if (!(*_viObject)->isDead())
+			{
+				_enemyCnt++;
+			}
+		}
+		(*_viObject)->update();
 	}
+
+	if (_bossDead && _enemyCnt == 0)
+		_trigger = CLEAR;
 }
 
 void objectManager::render()
