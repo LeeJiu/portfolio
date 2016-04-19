@@ -56,7 +56,3 @@ void enemy::setY(int y)
 void enemy::damage(int damage)
 {
 }
-
-void enemy::recover(int recovery, int type)
-{
-}

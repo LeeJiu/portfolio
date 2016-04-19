@@ -15,8 +15,6 @@ private:
 
 	objectManager* _objectMgr;
 
-	SCENE _trigger;
-
 public:
 	gameMap();
 	~gameMap();
@@ -30,8 +28,6 @@ public:
 	void findPlayer();
 	void move();	//맵 이동 제한해주자
 	void setObject();
-
-	SCENE getTrigger() { return _trigger; }
 
 	void setObjectMgrMemoryLink(objectManager* objectMgr) { _objectMgr = objectMgr; }
 };

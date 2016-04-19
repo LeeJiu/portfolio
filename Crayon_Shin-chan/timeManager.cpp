@@ -48,20 +48,20 @@ void timeManager::render(HDC hdc)
 
 #ifdef _DEBUG
 	{
-		//if (_timer != NULL)
-		//{
-		//	//프레임 찍어주자
-		//	sprintf_s(str, "framePerSec : %d", _timer->getFrameRate());
-		//	TextOut(hdc, 0, WINSIZEY - 60, str, strlen(str));
-		//	
-		//	//월드 타임 찍어주자
-		//	sprintf_s(str, "worldTime : %f", _timer->getWorldTime());
-		//	TextOut(hdc, 0, WINSIZEY - 40, str, strlen(str));
-		//	
-		//	//갱신 Tick 찍어주자
-		//	sprintf_s(str, "elapsedTime : %f", _timer->getElapsedTime());
-		//	TextOut(hdc, 0, WINSIZEY - 20, str, strlen(str));
-		//}
+		if (_timer != NULL)
+		{
+			//프레임 찍어주자
+			sprintf_s(str, "framePerSec : %d", _timer->getFrameRate());
+			TextOut(hdc, 0, 0, str, strlen(str));
+
+			//월드 타임 찍어주자
+			sprintf_s(str, "worldTime : %f", _timer->getWorldTime());
+			TextOut(hdc, 0, 20, str, strlen(str));
+
+			//갱신 Tick 찍어주자
+			sprintf_s(str, "elapsedTime : %f", _timer->getElapsedTime());
+			TextOut(hdc, 0, 40, str, strlen(str));
+		}
 	}
 #else
 	{

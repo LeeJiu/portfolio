@@ -52,7 +52,6 @@ public:
 	virtual void setY(int y);
 	
 	virtual void damage(int damage);
-	virtual void recover(int recovery, int type);
 	virtual bool isDead() { return _isDead; }
 	virtual bool isRight() { return _enemy.isRight; }
 	

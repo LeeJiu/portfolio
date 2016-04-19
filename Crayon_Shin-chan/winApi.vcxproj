@@ -69,7 +69,7 @@
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
@@ -80,12 +80,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animation.h" />
+    <ClInclude Include="attackObj.h" />
     <ClInclude Include="boxboy.h" />
     <ClInclude Include="chocobee.h" />
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="gameObject.h" />
-    <ClInclude Include="gameScene.h" />
     <ClInclude Include="hip.h" />
     <ClInclude Include="objectManager.h" />
     <ClInclude Include="gameMap.h" />
@@ -107,11 +107,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
+    <ClCompile Include="attackObj.cpp" />
     <ClCompile Include="boxboy.cpp" />
     <ClCompile Include="chocobee.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="gameObject.cpp" />
-    <ClCompile Include="gameScene.cpp" />
     <ClCompile Include="hip.cpp" />
     <ClCompile Include="objectManager.cpp" />
     <ClCompile Include="gameMap.cpp" />

@@ -64,7 +64,6 @@ public:
 	virtual void setY(int y) = 0;
 
 	virtual void damage(int damage) = 0;
-	virtual void recover(int recovery, int type) = 0;
 	virtual void dead() = 0;
 	virtual bool isDead() = 0;
 	virtual bool isRight() = 0;

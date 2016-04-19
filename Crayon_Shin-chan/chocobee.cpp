@@ -16,14 +16,9 @@ HRESULT chocobee::init(int x, int y)
 {
 	IMAGEMANAGER->addFrameImage("chocobee_run", "image/enemy/chocobee_run.bmp", 308, 120, 4, 2, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("chocobee_attack", "image/enemy/chocobee_attack.bmp", 240, 90, 3, 1, true, 0xff00ff);
-	IMAGEMANAGER->addImage("shadow", "image/effect/shadow.bmp", 52, 31, true, 0xff00ff);
 
 	_enemy.charater = new image;
 	_enemy.charater->init("image/enemy/chocobee_idle.bmp", 80, 90, 1, 1, true, 0xff00ff);
-
-	_enemy.shadow = IMAGEMANAGER->findImage("shadow");
-
-	_chocobeeState = static_cast<CHOCOBEESTATE>(RND->getInt(3));
 
 	_enemy.state = IDLE;
 	_enemy.type = CHOCOBEE;
@@ -77,8 +72,7 @@ void chocobee::update()
 		{
 			//런 상태로 어택!
 			move();
-			if (_objectMgr->getVObject()[_saveIdx]->getState() == IDLE)
-				attack();
+			attack();
 		}
 		else if (_enemy.state == IDLE)
 		{
@@ -91,8 +85,7 @@ void chocobee::update()
 
 void chocobee::render()
 {
-	_enemy.shadow->alphaRender(getMemDC(), _enemy.pt.x - _enemy.charater->getFrameWidth() / 3, _enemy.pt.y + _enemy.charater->getFrameHeight() / 4, 128);
-	//Rectangle(getMemDC(), _enemy.coll.left, _enemy.coll.top, _enemy.coll.right, _enemy.coll.bottom);
+	Rectangle(getMemDC(), _enemy.coll.left, _enemy.coll.top, _enemy.coll.right, _enemy.coll.bottom);
 	_enemy.charater->frameRender(getMemDC(), _enemy.coll.left, _enemy.coll.top, _enemy.charater->getFrameX(), _enemy.charater->getFrameY());
 	if(_enemy.state == RUN)
 		_hpBar->render();
@@ -173,29 +166,14 @@ void chocobee::damage(int damage)
 {
 	if (_enemy.curHp == _enemy.maxHp)
 	{
-		switch (_chocobeeState)
-		{
-		case ITEM_HP:
-			_objectMgr->getVObject()[_saveIdx]->recover(50, 1);
-			_enemy.curHp = 0;
-			dead();
-			return;
-		case ITEM_MP:
-			_objectMgr->getVObject()[_saveIdx]->recover(50, 2);
-			_enemy.curHp = 0;
-			dead();
-			return;
-		case ITEM_NONE:
-			_enemy.state = ATTACK;
-			_curFrameX = 0;
-			_curFrameY = 0;
-			break;
-		}
+		_enemy.state = ATTACK;
+		_curFrameX = 0;
+		_curFrameY = 0;
 	}
 
 	_enemy.curHp -= damage;
 	_hpBar->decreaseBar(damage);
-	if (_enemy.curHp < 0)
+	if (_enemy.curHp <= 0)
 	{
 		_enemy.curHp = 0;
 		_enemy.state = DEAD;

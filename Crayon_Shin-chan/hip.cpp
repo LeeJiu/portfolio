@@ -17,12 +17,8 @@ HRESULT hip::init(int x, int y)
 	IMAGEMANAGER->addFrameImage("hip_attack", "image/enemy/hip_attack.bmp", 340, 200, 4, 2, true, 0xff00ff);
 	IMAGEMANAGER->addFrameImage("hip_run", "image/enemy/hip_run.bmp", 378, 160, 6, 2, true, 0xff00ff);
 
-	IMAGEMANAGER->addImage("shadow", "image/effect/shadow.bmp", 52, 31, true, 0xff00ff);
-
 	_enemy.charater = new image;
 	_enemy.charater->init("image/enemy/hip_idle.bmp", 100, 160, 2, 2, true, 0xff00ff);
-
-	_enemy.shadow = IMAGEMANAGER->findImage("shadow");
 
 	_enemy.state = IDLE;
 	_enemy.type = HIP;
@@ -30,7 +26,7 @@ HRESULT hip::init(int x, int y)
 	_enemy.pt.x = x;
 	_enemy.pt.y = y;
 	_enemy.coll = RectMakeCenter(_enemy.pt.x, _enemy.pt.y, _enemy.charater->getFrameWidth(), _enemy.charater->getFrameHeight());
-	_enemy.curHp = _enemy.maxHp = 500;
+	_enemy.curHp = _enemy.maxHp = 3000;
 	_isDead = false;
 
 	IMAGEMANAGER->addImage("enemy_bg", "image/ui/enemy_gauge_bg.bmp", 54, 9, true, 0xff00ff);
@@ -86,10 +82,7 @@ void hip::update()
 	{
 		move();
 		if (_enemy.state == RUN)
-		{
-			if (_objectMgr->getVObject()[_saveIdx]->getState() == IDLE)
-				attack();
-		}
+			attack();
 		else if (_enemy.state == ATTACK)
 			fire();
 
@@ -101,16 +94,6 @@ void hip::update()
 
 void hip::render()
 {
-	if (_enemy.isRight)
-		_enemy.shadow->alphaRender(getMemDC(), _enemy.pt.x - _enemy.charater->getFrameWidth() / 2, _enemy.pt.y + _enemy.charater->getFrameHeight() / 3, 128);
-	else
-	{
-		if (_enemy.state == IDLE)
-			_enemy.shadow->alphaRender(getMemDC(), _enemy.pt.x - _enemy.charater->getFrameWidth() / 2, _enemy.pt.y + _enemy.charater->getFrameHeight() / 3, 128);
-		else
-			_enemy.shadow->alphaRender(getMemDC(), _enemy.pt.x - _enemy.charater->getFrameWidth() / 4, _enemy.pt.y + _enemy.charater->getFrameHeight() / 3, 128);
-	}
-
 	//Rectangle(getMemDC(), _enemy.coll.left, _enemy.coll.top, _enemy.coll.right, _enemy.coll.bottom);
 	_enemy.charater->frameRender(getMemDC(), _enemy.coll.left, _enemy.coll.top, _enemy.charater->getFrameX(), _enemy.charater->getFrameY());
 	_hpBar->render();
@@ -334,7 +317,7 @@ void hip::damage(int damage)
 	_hit = false;
 	_enemy.curHp -= damage;
 	_hpBar->decreaseBar(damage);
-	if (_enemy.curHp < 0)
+	if (_enemy.curHp <= 0)
 	{
 		_enemy.curHp = 0;
 		_enemy.state = DEAD;

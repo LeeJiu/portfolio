@@ -32,8 +32,8 @@ public:
 
 	int getX() { return _enemy.pt.x; }
 	int getY() { return _enemy.pt.y; }
-	//void setX(int x) {}
-	//void setY(int y) {}
+	void setX(int x) {}
+	void setY(int y) {}
 
 	void move();
 	void attack();

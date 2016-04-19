@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="randomFunction" Collapsed="true">
-    <Position X="3" Y="8.25" Width="1.5" />
+    <Position X="1.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EIAAAAAACAAAAAAgAAAAAAAAAAAAAAAAAAAAAAABEAA=</HashCode>
       <FileName>randomFunction.h</FileName>
@@ -15,28 +15,28 @@
     </TypeIdentifier>
   </Class>
   <Class Name="imageManager" Collapsed="true">
-    <Position X="7.5" Y="8.25" Width="1.5" />
+    <Position X="6.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAAAAAAEAQAgEAAAAAACAEAAQAAAAAIAAAIBAAAQICA=</HashCode>
       <FileName>imageManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="keyManager" Collapsed="true">
-    <Position X="9.75" Y="8.25" Width="1.5" />
+    <Position X="8.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAQAAAAAIACAAEAAEEAAAAQAAAAAACIBAAIACACAAAA=</HashCode>
       <FileName>keyManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="singletonBase&lt;T&gt;" Collapsed="true">
-    <Position X="7.5" Y="7" Width="1.5" />
+    <Position X="6.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEAAAACEAAAAAAAAAAAAAAAAQAAAAAAAACAAAAAAAA=</HashCode>
       <FileName>singletonBase.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="timeManager" Collapsed="true">
-    <Position X="5.25" Y="8.25" Width="1.5" />
+    <Position X="4" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAAAAAAAAAAgAAAAAAAAABAAAAIAAAIAAEAgAAAUAAA=</HashCode>
       <FileName>timeManager.h</FileName>
@@ -57,7 +57,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="txtData" Collapsed="true">
-    <Position X="12" Y="8.25" Width="1.5" />
+    <Position X="10.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ECAAABAAAAAAAAgAACAAAAAAAAAAAAIAAQAAgAAAAAA=</HashCode>
       <FileName>txtData.h</FileName>
@@ -89,27 +89,28 @@
     <InheritanceLine Type="gameObject" ManuallyRouted="true">
       <Path>
         <Point X="2.75" Y="2.441" />
-        <Point X="2.75" Y="2.605" />
-        <Point X="1.25" Y="2.605" />
+        <Point X="2.75" Y="2.679" />
+        <Point X="1.912" Y="2.679" />
+        <Point X="1.912" Y="2.75" />
         <Point X="1.25" Y="2.75" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>UAAQgDAAECAgkAGQAQAGCgABARABAAKJRAAAAGAUAAA=</HashCode>
+      <HashCode>UAAAgCAAECAAkAGQAQAGCgAAARABAAKJBAAAAGAUAAA=</HashCode>
       <FileName>player.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="gameMap" Collapsed="true">
     <Position X="4.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAEABAIEACAAAAIAAYAAIABACIAAGAgAAAUAAA=</HashCode>
+      <HashCode>EAAAAAAkABAIEACAAAAICAIAAAABAAIAAEAgAAAUAAA=</HashCode>
       <FileName>gameMap.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="boxboy" Collapsed="true">
     <Position X="3.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAgAAAAAAAkAGABQAAAAAACAAAAAKIAAAAAGAUAAA=</HashCode>
+      <HashCode>EAAAgAAgAAAAgAGAFQAGAAAACAAAAAKIAAAAAGAUAAA=</HashCode>
       <FileName>boxboy.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -118,89 +119,60 @@
     <InheritanceLine Type="gameObject" ManuallyRouted="true">
       <Path>
         <Point X="2.75" Y="2.441" />
-        <Point X="2.75" Y="2.603" />
-        <Point X="4.25" Y="2.603" />
+        <Point X="2.75" Y="2.668" />
+        <Point X="4.25" Y="2.668" />
         <Point X="4.25" Y="2.75" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>UAAAAABAECAAkAAAECAGAgABAZABAAIARAAAAGAUAAI=</HashCode>
+      <HashCode>EAAAAAAAECAAgAAAAAAGCgAAAZABAAIABAAAAGAUAAI=</HashCode>
       <FileName>enemy.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="gameObject" Collapsed="true">
     <Position X="2" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>UAAAAAAAACAAkAAAAAAGAAABERABwAIIQgCAAGAUAAA=</HashCode>
+      <HashCode>EAAAAAAAACAAgAAAAAAGAAAAERAAwAIAAgCAAGAUAAA=</HashCode>
       <FileName>gameObject.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="objectManager" Collapsed="true">
     <Position X="10.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>FAIAACAAAAAAAAAQAAFAAAIAACAAAAIAAABAAgAUAAA=</HashCode>
+      <HashCode>FAIAACAAAAAAAAAQAAFACAIAACAAAAIAAABAAgAUAAA=</HashCode>
       <FileName>objectManager.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="chocobee" Collapsed="true">
-    <Position X="1.25" Y="4.25" Width="1.5" />
-    <InheritanceLine Type="enemy" FixedFromPoint="true">
-      <Path>
-        <Point X="4.25" Y="3.441" />
-        <Point X="4.25" Y="3.875" />
-        <Point X="2" Y="3.875" />
-        <Point X="2" Y="4.25" />
-      </Path>
-    </InheritanceLine>
-    <TypeIdentifier>
-      <HashCode>EAAAgAAAAAAIkAGAIQAAAAAAAAAAAAKIAAAAAGAUAAA=</HashCode>
-      <FileName>chocobee.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="hip" Collapsed="true">
-    <Position X="6" Y="4.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>MAAQgACQAAAgkgGAAQAAAAAAAAAAAAKIBAAAAGAUQAA=</HashCode>
-      <FileName>hip.h</FileName>
-    </TypeIdentifier>
-  </Class>
   <Struct Name="tagPlayer" Collapsed="true">
-    <Position X="17.5" Y="3.75" Width="1.5" />
+    <Position X="17.5" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAIAAAAAAAAQAAAAAAAAAAAAABAAAEAFQAAAAABIAAA=</HashCode>
       <FileName>player.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="tagEnemy" Collapsed="true">
-    <Position X="15.75" Y="3.75" Width="1.5" />
+    <Position X="15.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAAAAAAAAAAQAAAAAAAAAAAAABAAAEAEQAAAAABAAAI=</HashCode>
       <FileName>enemy.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="tagCharacter" Collapsed="true">
-    <Position X="15.75" Y="2.75" Width="1.5" />
+    <Position X="17.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAIAAAAAAACQAAAAAAAAAAAAABABAEAEQAAAAABIAAA=</HashCode>
       <FileName>gameObject.h</FileName>
     </TypeIdentifier>
   </Struct>
-  <Struct Name="tagFireball" Collapsed="true">
-    <Position X="17.5" Y="2.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAABAAAFAERAAAAAAAAAA=</HashCode>
-      <FileName>hip.h</FileName>
-    </TypeIdentifier>
-  </Struct>
   <Enum Name="STATE" Collapsed="true">
-    <Position X="15.75" Y="5" Width="1.5" />
+    <Position X="15.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAAAAAAQAAgAAAAACgAAAAAAAAEAAAAgA=</HashCode>
       <FileName>gameObject.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="TYPE" Collapsed="true">
-    <Position X="17.5" Y="5" Width="1.5" />
+    <Position X="17.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAEAAABAAAAAAAAAAAAAAAAACAAAAEAAgAA=</HashCode>
       <FileName>gameObject.h</FileName>
