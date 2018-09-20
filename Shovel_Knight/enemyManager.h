@@ -1,21 +1,25 @@
 #pragma once
-#include "gameNode.h"
+
 #include "beeto.h"
+#include "skeleton.h"
+#include "dragon.h"
 
-class stageMap;
 class objectManager;
+class player;
 
-class enemyManager : public gameNode
+class enemyManager
 {
 private:
 	vector<enemy*> _vEnemy;
 	vector<enemy*>::iterator _viEnemy;
 
+	enemy* _boss;
+
 	int _stageNum;
 	bool _load;
 
-	stageMap* _map;
 	objectManager* _objMgr;
+	player* _player;
 
 public:
 	enemyManager();
@@ -30,9 +34,10 @@ public:
 
 	void setEnemy(tagEnemy& stEnemy);
 	
-	void setMapMemoryLink(stageMap* map) { _map = map; }
 	void setObjMemoryLink(objectManager* objMgr) { _objMgr = objMgr; }
+	void setPlayerMemoryLink(player* player) { _player = player; }
 
 	vector<enemy*>& getVEnemy() { return _vEnemy; }
+	enemy* getBoss() { return _boss; }
 };
 

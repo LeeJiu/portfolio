@@ -58,15 +58,6 @@
     <Filter Include="2D Framework\loading">
       <UniqueIdentifier>{072ec289-27aa-4341-9f70-c1bf70dd09f9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="gameStudy\maptool">
-      <UniqueIdentifier>{7a858be8-30cd-4102-b436-f08758282cbf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\title">
-      <UniqueIdentifier>{4a999f0e-a053-4983-84a0-37db1652b712}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gameStudy\stage">
-      <UniqueIdentifier>{0cb5ffb4-5ae7-42a3-b695-8396864eacc1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="gameStudy\player">
       <UniqueIdentifier>{24bc2f5b-630c-4841-aba3-ed1c38f409a2}</UniqueIdentifier>
     </Filter>
@@ -75,6 +66,27 @@
     </Filter>
     <Filter Include="gameStudy\objects">
       <UniqueIdentifier>{9449e3d0-a8fd-4ac7-ab2a-3255caeb4fda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameStudy\item">
+      <UniqueIdentifier>{cee8215a-3da8-47a5-b457-47663e7ca591}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameStudy\scene">
+      <UniqueIdentifier>{81798025-a4ae-4733-9650-b5a75d5410e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameStudy\scene\stage">
+      <UniqueIdentifier>{0cb5ffb4-5ae7-42a3-b695-8396864eacc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameStudy\scene\title">
+      <UniqueIdentifier>{4a999f0e-a053-4983-84a0-37db1652b712}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameStudy\scene\gameOver">
+      <UniqueIdentifier>{ed181f97-5814-4bcf-8b0f-bd3549df10c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameStudy\scene\maptool">
+      <UniqueIdentifier>{7a858be8-30cd-4102-b436-f08758282cbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameStudy\scene\clear">
+      <UniqueIdentifier>{b4e169b0-a3dd-453d-b9c2-3b80d61f5fd5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -163,19 +175,19 @@
       <Filter>2D Framework\loading</Filter>
     </ClInclude>
     <ClInclude Include="maptool.h">
-      <Filter>gameStudy\maptool</Filter>
+      <Filter>gameStudy\scene\maptool</Filter>
     </ClInclude>
     <ClInclude Include="maptoolUI.h">
-      <Filter>gameStudy\maptool</Filter>
+      <Filter>gameStudy\scene\maptool</Filter>
     </ClInclude>
     <ClInclude Include="title.h">
-      <Filter>gameStudy\title</Filter>
+      <Filter>gameStudy\scene\title</Filter>
     </ClInclude>
     <ClInclude Include="stage.h">
-      <Filter>gameStudy\stage</Filter>
+      <Filter>gameStudy\scene\stage</Filter>
     </ClInclude>
     <ClInclude Include="stageMap.h">
-      <Filter>gameStudy\stage</Filter>
+      <Filter>gameStudy\scene\stage</Filter>
     </ClInclude>
     <ClInclude Include="player.h">
       <Filter>gameStudy\player</Filter>
@@ -195,11 +207,38 @@
     <ClInclude Include="block.h">
       <Filter>gameStudy\objects</Filter>
     </ClInclude>
-    <ClInclude Include="ladder.h">
-      <Filter>gameStudy\objects</Filter>
-    </ClInclude>
     <ClInclude Include="beeto.h">
       <Filter>gameStudy\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="item.h">
+      <Filter>gameStudy\item</Filter>
+    </ClInclude>
+    <ClInclude Include="stateUI.h">
+      <Filter>gameStudy\scene\stage</Filter>
+    </ClInclude>
+    <ClInclude Include="itemManager.h">
+      <Filter>gameStudy\item</Filter>
+    </ClInclude>
+    <ClInclude Include="movingTile.h">
+      <Filter>gameStudy\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="skeleton.h">
+      <Filter>gameStudy\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="dragon.h">
+      <Filter>gameStudy\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="bubbleShot.h">
+      <Filter>gameStudy\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="gameOver.h">
+      <Filter>gameStudy\scene\gameOver</Filter>
+    </ClInclude>
+    <ClInclude Include="clear.h">
+      <Filter>gameStudy\scene\clear</Filter>
+    </ClInclude>
+    <ClInclude Include="chest.h">
+      <Filter>gameStudy\objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -276,19 +315,19 @@
       <Filter>2D Framework\loading</Filter>
     </ClCompile>
     <ClCompile Include="maptool.cpp">
-      <Filter>gameStudy\maptool</Filter>
+      <Filter>gameStudy\scene\maptool</Filter>
     </ClCompile>
     <ClCompile Include="maptoolUI.cpp">
-      <Filter>gameStudy\maptool</Filter>
+      <Filter>gameStudy\scene\maptool</Filter>
     </ClCompile>
     <ClCompile Include="title.cpp">
-      <Filter>gameStudy\title</Filter>
+      <Filter>gameStudy\scene\title</Filter>
     </ClCompile>
     <ClCompile Include="stage.cpp">
-      <Filter>gameStudy\stage</Filter>
+      <Filter>gameStudy\scene\stage</Filter>
     </ClCompile>
     <ClCompile Include="stageMap.cpp">
-      <Filter>gameStudy\stage</Filter>
+      <Filter>gameStudy\scene\stage</Filter>
     </ClCompile>
     <ClCompile Include="player.cpp">
       <Filter>gameStudy\player</Filter>
@@ -308,11 +347,41 @@
     <ClCompile Include="block.cpp">
       <Filter>gameStudy\objects</Filter>
     </ClCompile>
-    <ClCompile Include="ladder.cpp">
-      <Filter>gameStudy\objects</Filter>
-    </ClCompile>
     <ClCompile Include="beeto.cpp">
       <Filter>gameStudy\enemy</Filter>
     </ClCompile>
+    <ClCompile Include="item.cpp">
+      <Filter>gameStudy\item</Filter>
+    </ClCompile>
+    <ClCompile Include="stateUI.cpp">
+      <Filter>gameStudy\scene\stage</Filter>
+    </ClCompile>
+    <ClCompile Include="itemManager.cpp">
+      <Filter>gameStudy\item</Filter>
+    </ClCompile>
+    <ClCompile Include="movingTile.cpp">
+      <Filter>gameStudy\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="skeleton.cpp">
+      <Filter>gameStudy\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="dragon.cpp">
+      <Filter>gameStudy\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="bubbleShot.cpp">
+      <Filter>gameStudy\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="gameOver.cpp">
+      <Filter>gameStudy\scene\gameOver</Filter>
+    </ClCompile>
+    <ClCompile Include="clear.cpp">
+      <Filter>gameStudy\scene\clear</Filter>
+    </ClCompile>
+    <ClCompile Include="chest.cpp">
+      <Filter>gameStudy\objects</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

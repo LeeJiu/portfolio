@@ -4,8 +4,8 @@
 class maptoolUI : public gameNode
 {
 private:
-	image* _sampleImg;
-	image* _objectImg;
+	image* _tileImg;
+	image* _pixelImg;
 	image* _enemyImg;
 
 	RECT _selectStage;
@@ -18,7 +18,7 @@ private:
 
 	char * _objectName;
 	char * _enemyName;
-	char _strStage[128];
+	char _strStage[128], _strPixel[128], _strBG[128], _strBGPixel[128];
 	int _nStage;
 	int _imageNumX, _imageNumY;
 	int _objWidth, _objHeight;
@@ -41,6 +41,9 @@ public:
 	void selectCharacter();
 	void selectStageState();
 
+	void keyControl();
+
+	void changeTileImg();
 	void changeObjectImg();
 	void changeEnemyImg();
 
@@ -56,7 +59,7 @@ public:
 	TILETYPE getTileType() { return _tileType; }
 	OBJECTTYPE getObjectType() { return _objectType; }
 	ENEMYTYPE getEnemyType() { return _enemyType; }
-	image* getTileImage() { return _sampleImg; }
-	//image* getObjectImage() { return _objectImg; }
+	image* getTileImage() { return _tileImg; }
+	image* getPixelImage() { return _pixelImg; }
 };
 

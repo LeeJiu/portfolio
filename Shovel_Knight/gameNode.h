@@ -3,6 +3,7 @@
 #include "image.h"
 
 static image* _backBuffer = IMAGEMANAGER->addImage("backBuffer", WINSIZEX * PAGENUMX, WINSIZEY * PAGENUMY);
+static image* _pixelBuffer = IMAGEMANAGER->addImage("pixelBuffer", WINSIZEX * PAGENUMX, WINSIZEY * PAGENUMY);
 
 class gameNode
 {
@@ -24,7 +25,9 @@ public:
 	virtual void render();
 
 	image* getBackBuffer() { return _backBuffer; }
-	HDC getMemDC() { return _backBuffer->getMemDC(); }
+	image* getPixelBuffer() { return _pixelBuffer; }
+	static HDC getMemDC() { return _backBuffer->getMemDC(); }
+	static HDC getPixelDC() { return _pixelBuffer->getMemDC(); }
 	HDC getHDC() { return _hdc; }
 
 	LRESULT MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);

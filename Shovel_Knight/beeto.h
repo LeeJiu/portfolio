@@ -12,15 +12,18 @@ public:
 	beeto();
 	~beeto();
 
-	HRESULT init(stageMap* map, objectManager* objMgr, int x, int y);
+	HRESULT init(int x, int y);
 	void release();
 	void update();
-	void render();
 
 	void move();
-	void tileCollision();
+	void bounce();
+	void collision();
 
 	void setImage();
 	void setFrame();
+
+	void setIsDead(bool isDead);
+	void setRect();
 };
 

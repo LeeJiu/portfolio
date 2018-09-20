@@ -4,6 +4,8 @@
 #include "stageMap.h"
 #include "objectManager.h"
 #include "enemyManager.h"
+#include "stateUI.h"
+#include <typeinfo>
 
 class stage : public gameNode
 {
@@ -12,6 +14,9 @@ private:
 	stageMap* _map;
 	objectManager* _objMgr;
 	enemyManager* _enemyMgr;
+	stateUI* _ui;
+
+	float _delayTime;
 
 public:
 	stage();

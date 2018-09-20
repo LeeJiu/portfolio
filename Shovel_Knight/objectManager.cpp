@@ -28,6 +28,7 @@ void objectManager::update()
 
 	for (_viObject = _vObject.begin(); _viObject != _vObject.end(); ++_viObject)
 	{
+		if((*_viObject)->getIsBroken()) continue;
 		(*_viObject)->update();
 	}
 }
@@ -38,9 +39,9 @@ void objectManager::render()
 
 	for (_viObject = _vObject.begin(); _viObject != _vObject.end(); ++_viObject)
 	{
-		if ((*_viObject)->getX() < _sourX || (*_viObject)->getX() > _sourX + WINSIZEX) continue;
+		if ((*_viObject)->getRect().right < _sourX || (*_viObject)->getX() > _sourX + WINSIZEX) continue;
 		if ((*_viObject)->getY() < _sourY || (*_viObject)->getY() > _sourY + WINSIZEY) continue;
-
+		if ((*_viObject)->getIsBroken() && (*_viObject)->getType() != CHEST) continue;
 		(*_viObject)->render();
 	}
 }
@@ -61,8 +62,6 @@ void objectManager::load(int stageNum)
 		if (dataOrder % 3 == 0)			//0번째 데이터 type
 		{
 			obj.type = (OBJECTTYPE)atoi(temp);
-			//selectObjectName(obj.type);
-			//obj.objImage = IMAGEMANAGER->findImage(_objectName);
 		}
 		else if (dataOrder % 3 == 1)	//1번째 데이터 x
 		{
@@ -98,6 +97,9 @@ void objectManager::setObjects(tagObject& obj)
 	case CHECKPOINT02:
 		break;
 	case CHEST:
+		object = new chest;
+		object->init(CHEST, obj.x, obj.y);
+		_vObject.push_back(object);
 		break;
 	case AWL:
 		break;
@@ -106,6 +108,9 @@ void objectManager::setObjects(tagObject& obj)
 	case PILE02:
 		break;
 	case MOVINGTILE01:
+		object = new movingTile;
+		object->init(MOVINGTILE01, obj.x, obj.y);
+		_vObject.push_back(object);
 		break;
 	case MOVINGTILE02:
 		break;

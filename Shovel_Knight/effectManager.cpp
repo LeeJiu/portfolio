@@ -33,7 +33,7 @@ void effectManager::release()
 			if (mIter->second.size() != 0)
 			{
 				iterEffects vArrIter = mIter->second.begin();
-				for (vArrIter; vArrIter != mIter->second.end(); ++vArrIter)
+				for (vArrIter; vArrIter != mIter->second.end(); )
 				{
 					(*vArrIter)->release();
 					delete *vArrIter;
@@ -103,7 +103,7 @@ void effectManager::addEffect(string effectName, const char * imageName, int ima
 	else
 	{
 		//이미지 등록
-		img = IMAGEMANAGER->addImage(imageName, imageName, imageWidth, imageHeight, true, RGB(255, 0, 255));
+		img = IMAGEMANAGER->addImage(effectName, imageName, imageWidth, imageHeight, true, RGB(255, 0, 255));
 	}
 
 	//총 버퍼 갯수만큼 벡터에 담아주자

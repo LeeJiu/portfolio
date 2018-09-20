@@ -4,6 +4,14 @@
 
 class title : public gameNode
 {
+private:
+	image* _cursor;
+	int _cursorX, _cursorY, _cursorDist, _selectScene;
+	bool _select;
+
+	int _btAlpha[2];
+	int _count, _curFrameX;
+
 public:
 	title();
 	~title();
@@ -12,5 +20,10 @@ public:
 	void release();
 	void update();
 	void render();
+
+	void keyControl();
+	void setFrame();
+	void moveCursor();
+	void moveScene();
 };
 

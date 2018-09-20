@@ -43,3 +43,10 @@ void block::render()
 	if(!_isBroken)
 		_image->render(getMemDC(), _rc.left, _rc.top);
 }
+
+void block::setIsBroken(bool isBroken)
+{
+	_isBroken = isBroken;
+	EFFECTMANAGER->play("explosion", 
+		_x + (_image->getWidth() * 0.5), _y + (_image->getHeight() * 0.5));
+}

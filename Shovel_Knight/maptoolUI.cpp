@@ -14,26 +14,28 @@ maptoolUI::~maptoolUI()
 HRESULT maptoolUI::init()
 {
 	//UI
-	_selectStage = RectMake(_sourX, _sourY, WINSIZEX - 128, 128);
-	_selectUI = RectMake(_sourX + 768, _sourY, 192, WINSIZEY);
-	_selectType = RectMake(_sourX + 816, _sourY + 32, 96, 64);
-	_selectTile = RectMake(_sourX + 816, _sourY + 128, 96, 224);
-	_selectNum = RectMake(_sourX + 96, _sourY + 32, 32, 64);
-	_selectObj = RectMake(_sourX + 784, _sourY + 64, 160, 481);
-	_selectEnemy= RectMake(_sourX + 784, _sourY + 64, 160, 481);
+	_selectStage = RectMake(_sourX, _sourY, WINSIZEX, 64);
+	_selectUI = RectMake(_sourX + 672, _sourY, 192, WINSIZEY);
+	_selectType = RectMake(_sourX + 688, _sourY + 32, 96, 64);
+	_selectTile = RectMake(_sourX + 688, _sourY + 128, 96, 256);
+	_selectNum = RectMake(_sourX + 96, _sourY, 32, 64);
+	_selectObj = RectMake(_sourX + 672, _sourY + 48, 128, 384);
+	_selectEnemy= RectMake(_sourX + 672, _sourY + 48, 128, 384);
 
 	sprintf_s(_strStage, "Stage%d", _nStage);
+	sprintf_s(_strPixel, "Stage%d_pixel", _nStage);
+	sprintf_s(_strBG, "Stage%d_bg", _nStage);
+	sprintf_s(_strBGPixel, "Stage%d_bgpixel", _nStage);
 
-	IMAGEMANAGER->addImage("ui_dlg_big", "image/ui/ui_dlg_big.bmp", 192, 640, false, false);
-	IMAGEMANAGER->addImage("ui_dlg_big2", "image/ui/ui_dlg_big2.bmp", 960, 128, false, false);
-	IMAGEMANAGER->addImage("ui_selectPos", "image/ui/ui_selectPos.bmp", 96, 96, false, false);
+	IMAGEMANAGER->addImage("ui_dlg_big", "image/ui/ui_dlg_big.bmp", 128, 480, false, false);
+	IMAGEMANAGER->addImage("ui_dlg_big2", "image/ui/ui_dlg_big2.bmp", 800, 64, false, false);
 	IMAGEMANAGER->addImage("ui_selectType", "image/ui/ui_selectType.bmp", 96, 64, false, false);
 	IMAGEMANAGER->addImage("ui_selectNum", "image/ui/ui_selectNum.bmp", 32, 64, false, false);
 
-	_sampleImg = IMAGEMANAGER->findImage(_strStage);
-	_objectImg = NULL;
+	_tileImg = IMAGEMANAGER->findImage(_strStage);
+	_pixelImg = IMAGEMANAGER->findImage(_strPixel);
 	_enemyImg = IMAGEMANAGER->findImage("enemies");;
-	_tileType = BACKGROUND;
+	_tileType = NONE;
 	_enemyType = BEETO;
 	_objectName = "smallBlock";	//디폴트 오브젝트
 	_enemyName = "beeto";		//디폴트 에너미
@@ -48,23 +50,25 @@ void maptoolUI::release()
 void maptoolUI::update()
 {
 	//렉트 갱신
-	_selectStage = RectMake(_sourX, _sourY, WINSIZEX - 128, 128);
-	_selectUI = RectMake(_sourX + 768, _sourY, 192, WINSIZEY);
-	_selectType = RectMake(_sourX + 816, _sourY + 32, 96, 64);
-	_selectTile = RectMake(_sourX + 816, _sourY + 128, 96, 224);
-	_selectNum = RectMake(_sourX + 96, _sourY + 32, 32, 64);
-	_selectObj = RectMake(_sourX + 784, _sourY + 64, 160, 481);
-	_selectEnemy = RectMake(_sourX + 784, _sourY + 64, 160, 481);
+	_selectStage = RectMake(_sourX, _sourY, WINSIZEX, 64);
+	_selectUI = RectMake(_sourX + 672, _sourY, 192, WINSIZEY);
+	_selectType = RectMake(_sourX + 688, _sourY + 32, 96, 64);
+	_selectTile = RectMake(_sourX + 688, _sourY + 128, 96, 256);
+	_selectNum = RectMake(_sourX + 96, _sourY, 32, 64);
+	_selectObj = RectMake(_sourX + 672, _sourY + 48, 128, 384);
+	_selectEnemy = RectMake(_sourX + 672, _sourY + 48, 128, 384);
 
 	sprintf_s(_strStage, "Stage%d", _nStage);
+	sprintf_s(_strPixel, "Stage%d_pixel", _nStage);
+	sprintf_s(_strBG, "Stage%d_bg", _nStage);
+	sprintf_s(_strBGPixel, "Stage%d_bgpixel", _nStage);
 
 	selectStageState();
 	selectTile();
 	selectObject();
 	selectCharacter();
 
-	//샘플이미지 변경
-	_sampleImg = IMAGEMANAGER->findImage(_strStage);
+	keyControl();
 }
 
 void maptoolUI::render()
@@ -75,7 +79,7 @@ void maptoolUI::render()
 	//스테이지와 페이즈 넘버 세팅 / 상단 ui
 	IMAGEMANAGER->findImage("ui_dlg_big2")->render(getMemDC(), _selectStage.left, _selectStage.top);
 	IMAGEMANAGER->findImage("ui_selectNum")->render(getMemDC(), _selectNum.left, _selectNum.top);
-	TextOut(getMemDC(), _selectStage.left + 32, _selectStage.top + 54, _strStage, strlen(_strStage));
+	TextOut(getMemDC(), _selectStage.left + 32, _selectStage.top + 20, _strStage, strlen(_strStage));
 
 	//우측 팝업 ui
 	if (_onUI)
@@ -85,7 +89,7 @@ void maptoolUI::render()
 		if (_onSelTile)
 		{
 			IMAGEMANAGER->findImage("ui_selectType")->render(getMemDC(), _selectType.left, _selectType.top);
-			_sampleImg->render(getMemDC(), _selectTile.left, _selectTile.top);
+			_tileImg->render(getMemDC(), _selectTile.left, _selectTile.top);
 		}
 		else if (_onSelObj)
 		{
@@ -98,8 +102,8 @@ void maptoolUI::render()
 	}
 
 	char str[128];
-	sprintf_s(str, "%d", (int)_enemyType);
-	TextOut(getMemDC(), _sourX + 10, _sourY + 320, str, strlen(str));
+	sprintf_s(str, "enemy type : %d", (int)_enemyType);
+	TextOut(getMemDC(), _sourX + 10, _sourY + 250, str, strlen(str));
 }
 
 void maptoolUI::selectStageState()
@@ -118,6 +122,34 @@ void maptoolUI::selectStageState()
 					_nStage = 0;
 			}
 		}
+	}
+}
+
+void maptoolUI::keyControl()
+{
+	if (KEYMANAGER->isOnceKeyDown(VK_BACK))
+	{
+		SCENEMANAGER->changeScene("title");
+	}
+}
+
+void maptoolUI::changeTileImg()
+{
+	if (_tileType == NONE)
+	{
+		//타일 이미지 변경
+		_tileImg = IMAGEMANAGER->findImage(_strStage);
+
+		//픽셀 이미지 변경
+		_pixelImg = IMAGEMANAGER->findImage(_strPixel);
+	}
+	else if (_tileType == BACKGROUND)
+	{
+		//타일 이미지 변경
+		_tileImg = IMAGEMANAGER->findImage(_strBG);
+
+		//픽셀 이미지 변경
+		_pixelImg = IMAGEMANAGER->findImage(_strBGPixel);
 	}
 }
 
@@ -210,8 +242,8 @@ void maptoolUI::selectTile()
 		{
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
-				int width = _sampleImg->getWidth();
-				int height = _sampleImg->getHeight();
+				int width = _tileImg->getWidth();
+				int height = _tileImg->getHeight();
 				int frameX = width / TILESIZE;
 				int frameY = height / TILESIZE;
 
@@ -234,9 +266,6 @@ void maptoolUI::selectTile()
 						break;
 					}
 				}
-
-				if (_imageNumX == frameX - 1 && _imageNumY == frameY - 1)
-					_tileType = LADDER;
 			}
 		}
 
@@ -251,7 +280,8 @@ void maptoolUI::selectTile()
 					if (_click.x > _selectType.left + (width / 3 * i)
 						&& _click.x < _selectType.left + (width / 3 * (i + 1)))
 					{
-						_tileType = (TILETYPE)(i + 1);
+						_tileType = (TILETYPE)(i);
+						changeTileImg();
 						break;
 					}
 				}

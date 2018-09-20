@@ -23,6 +23,7 @@ HRESULT maptool::init()
 		for (int j = 0; j < TILENUMX; ++j)
 		{
 			_tile[i][j].tileImage = NULL;
+			_tile[i][j].pixelImage = NULL;
 			_tile[i][j].imagePos.x = 0;
 			_tile[i][j].imagePos.y = 0;
 			_tile[i][j].type = NONE;
@@ -75,27 +76,24 @@ void maptool::render()
 	{
 		for (int j = _sourX / TILESIZE; j < (_sourX + WINSIZEX) / TILESIZE; ++j)
 		{
-			if (_viewColl)
-			{
-				//if (_tile[i][j].imagePos.x == 0 && _tile[i][j].imagePos.y == 0) continue;
+			//if (_viewColl)
+			//{
+			//	//if (_tile[i][j].imagePos.x == 0 && _tile[i][j].imagePos.y == 0) continue;
 
-				switch (_tile[i][j].type)
-				{
-				case CRASHABLE:
-					TextOut(getMemDC(), _tile[i][j].rc.left + 2, _tile[i][j].rc.top, TEXT("O"), strlen("O"));
-					break;
-				case BREAKABLE:
-					TextOut(getMemDC(), _tile[i][j].rc.left + 2, _tile[i][j].rc.top, TEXT("B"), strlen("B"));
-					break;
-				case ONENEMY:
-					TextOut(getMemDC(), _tile[i][j].rc.left + 2, _tile[i][j].rc.top, TEXT("E"), strlen("E"));
-					break;
-				}
-			}
-			else if (_tile[i][j].tileImage == NULL) continue;
+			//	switch (_tile[i][j].type)
+			//	{
+			//	case NONE:
+			//		TextOut(getMemDC(), _tile[i][j].rc.left + 2, _tile[i][j].rc.top, TEXT("N"), strlen("N"));
+			//		break;
+			//	}
+			//}
+			/*else*/ if (_tile[i][j].tileImage == NULL) continue;
 			else
 			{
 				_tile[i][j].tileImage->render(getMemDC(), _tile[i][j].rc.left, _tile[i][j].rc.top,
+					_tile[i][j].imagePos.x * TILESIZE, _tile[i][j].imagePos.y * TILESIZE, TILESIZE, TILESIZE);
+				
+				_tile[i][j].pixelImage->render(getPixelDC(), _tile[i][j].rc.left, _tile[i][j].rc.top,
 					_tile[i][j].imagePos.x * TILESIZE, _tile[i][j].imagePos.y * TILESIZE, TILESIZE, TILESIZE);
 			}
 		}
@@ -129,10 +127,6 @@ void maptool::render()
 
 	//UI
 	_ui->render();
-
-	char str[128];
-	sprintf_s(str, "%d", _lObjList[_ui->getObjectType()].size());
-	TextOut(getMemDC(), _sourX + 10, _sourY + 250, str, strlen(str));
 
 	SelectObject(getMemDC(), oldPen);
 	DeleteObject(myPen);
@@ -189,9 +183,9 @@ void maptool::clickTile()
 		{
 			if (_ui->getOnUI())
 			{
-				if (_click.x > _sourX + 767) return;
+				if (_click.x > _sourX + 671) return;
 			}
-			if (_click.y < _sourY + 128) return;
+			if (_click.y < _sourY + 64) return;
 
 			setTile();
 		}
@@ -203,6 +197,7 @@ void maptool::clickTile()
 			int tileY = _click.y / TILESIZE;
 
 			_tile[tileY][tileX].tileImage = NULL;
+			_tile[tileY][tileX].pixelImage = NULL;
 			_tile[tileY][tileX].imagePos.x = 0;
 			_tile[tileY][tileX].imagePos.y = 0;
 			_tile[tileY][tileX].type = NONE;
@@ -214,9 +209,9 @@ void maptool::clickTile()
 		{
 			if (_ui->getOnUI())
 			{
-				if (_click.x > _sourX + 767) return;
+				if (_click.x > _sourX + 671) return;
 			}
-			if (_click.y < _sourY + 128) return;
+			if (_click.y < _sourY + 64) return;
 
 			setObject();
 		}
@@ -232,9 +227,9 @@ void maptool::clickTile()
 		{
 			if (_ui->getOnUI())
 			{
-				if (_click.x > _sourX + 767) return;
+				if (_click.x > _sourX + 671) return;
 			}
-			if (_click.y < _sourY + 128) return;
+			if (_click.y < _sourY + 64) return;
 
 			setCharacter();
 		}
@@ -252,9 +247,10 @@ void maptool::setTile()
 	int tileY = _click.y / TILESIZE;
 
 	//오브젝트가 있는 타일이라면 타일을 변경하지 못한다.
-	if (_tile[tileY][tileX].type == ONOBJECT) return;
+	//if (_tile[tileY][tileX].type == ONOBJECT) return;
 
 	_tile[tileY][tileX].tileImage = _ui->getTileImage();
+	_tile[tileY][tileX].pixelImage = _ui->getPixelImage();
 	_tile[tileY][tileX].imagePos.x = _ui->getImageNumX();
 	_tile[tileY][tileX].imagePos.y = _ui->getImageNumY();
 	_tile[tileY][tileX].type = _ui->getTileType();
@@ -272,13 +268,13 @@ void maptool::setObject()
 	int height = IMAGEMANAGER->findImage(objectName)->getHeight() / TILESIZE;
 
 	//에너미나 오브젝트가 있는 타일이라면 타일을 변경하지 못한다.
-	for (int i = tileX; i < tileX + width; ++i)
-	{
-		for (int j = tileY; j > tileY - height; --j)
-		{
-			if (_tile[j][i].type == ONOBJECT || _tile[j][i].type == ONENEMY) return;
-		}
-	}
+	//for (int i = tileX; i < tileX + width; ++i)
+	//{
+	//	for (int j = tileY; j > tileY - height; --j)
+	//	{
+	//		if (_tile[j][i].type == ONOBJECT /*|| _tile[j][i].type == ONENEMY*/) return;
+	//	}
+	//}
 
 	tagObject obj;
 	obj.type = _ui->getObjectType();
@@ -290,13 +286,13 @@ void maptool::setObject()
 	_lObjList[obj.type].push_back(obj);
 
 	//오브젝트가 있는 타일의 상태를 변경
-	for (int i = tileX; i < tileX + width; ++i)
+	/*for (int i = tileX; i < tileX + width; ++i)
 	{
 		for (int j = tileY; j > tileY - height; --j)
 		{
 			_tile[j][i].type = ONOBJECT;
 		}
-	}
+	}*/
 }
 
 void maptool::setCharacter()
@@ -311,13 +307,13 @@ void maptool::setCharacter()
 	int height = IMAGEMANAGER->findImage(enemyName)->getFrameHeight() / TILESIZE + 1;
 
 	//에너미나 오브젝트가 있는 타일이라면 타일을 변경하지 못한다.
-	for (int i = tileX; i < tileX + width; ++i)
-	{
-		for (int j = tileY; j > tileY - height; --j)
-		{
-			if (_tile[j][i].type == ONOBJECT || _tile[j][i].type == ONENEMY) return;
-		}
-	}
+	//for (int i = tileX; i < tileX + width; ++i)
+	//{
+	//	for (int j = tileY; j > tileY - height; --j)
+	//	{
+	//		if (_tile[j][i].type == ONOBJECT /*|| _tile[j][i].type == ONENEMY*/) return;
+	//	}
+	//}
 
 	tagEnemy enemy;
 	enemy.type = _ui->getEnemyType();
@@ -329,13 +325,13 @@ void maptool::setCharacter()
 	_lEnemy[enemy.type].push_back(enemy);
 
 	//에너미가 있는 타일의 상태를 변경
-	for (int i = tileX; i < tileX + width; ++i)
+	/*for (int i = tileX; i < tileX + width; ++i)
 	{
 		for (int j = tileY; j > tileY - height; --j)
 		{
 			_tile[j][i].type = ONENEMY;
 		}
-	}
+	}*/
 }
 
 void maptool::deleteObject()
@@ -416,6 +412,7 @@ void maptool::reset()
 		for (int j = 0; j < TILENUMX; ++j)
 		{
 			_tile[i][j].tileImage = NULL;
+			_tile[i][j].pixelImage = NULL;
 			_tile[i][j].imagePos.x = 0;
 			_tile[i][j].imagePos.y = 0;
 			_tile[i][j].type = NONE;
@@ -452,8 +449,6 @@ void maptool::save()
 
 		saveTile << itoa((*_viTile)->index, temp, 10) << endl;
 		saveTile << itoa((*_viTile)->type, temp, 10) << endl;
-		//saveTile << itoa((*_viTile)->x, temp, 10) << endl;
-		//saveTile << itoa((*_viTile)->y, temp, 10) << endl;
 		saveTile << itoa(imageNum, temp, 10) << endl;
 	}
 	saveTile.close();
@@ -491,11 +486,14 @@ void maptool::save()
 
 void maptool::load()
 {
-	char str[128], str2[128], temp[150000];
+	char str[128], str2[128], str3[128], str4[128], str5[128], temp[150000];
 
 	//타일 데이터 불러오기
 	sprintf_s(str, "Stage%d.txt", _nStage);
-	sprintf_s(str2, "Stage%d", _nStage);	//이미지 이름
+	sprintf_s(str2, "Stage%d", _nStage);		//타일 이미지 이름
+	sprintf_s(str3, "Stage%d_pixel", _nStage);	//픽셀 이미지 이름
+	sprintf_s(str4, "Stage%d_bg", _nStage);
+	sprintf_s(str5, "Stage%d_bgpixel", _nStage);
 	ifstream loadTile(str);
 
 	//타일 리셋
@@ -514,18 +512,20 @@ void maptool::load()
 		{
 			_tile[index / TILENUMX][index % TILENUMX].type = (TILETYPE)atoi(temp);
 		}
-		else if (dataOrder % 3 == 2)	//2번째 데이터 imageNum
+		else if (dataOrder % 3 == 2)	//2번째 데이터 tile
 		{
-			if (_tile[index / TILENUMX][index % TILENUMX].type == NONE
-				|| _tile[index / TILENUMX][index % TILENUMX].type == ONOBJECT
-				|| _tile[index / TILENUMX][index % TILENUMX].type == ONENEMY)
-			{
-				dataOrder++;
-				continue;
-			}
-
 			int imageNum = atoi(temp);
-			_tile[index / TILENUMX][index % TILENUMX].tileImage = IMAGEMANAGER->findImage(str2);
+			if (_tile[index / TILENUMX][index % TILENUMX].type == NONE)
+			{
+				_tile[index / TILENUMX][index % TILENUMX].tileImage = IMAGEMANAGER->findImage(str2);
+				_tile[index / TILENUMX][index % TILENUMX].pixelImage = IMAGEMANAGER->findImage(str3);
+			}
+			else if (_tile[index / TILENUMX][index % TILENUMX].type == BACKGROUND)
+			{
+				_tile[index / TILENUMX][index % TILENUMX].tileImage = IMAGEMANAGER->findImage(str4);
+				_tile[index / TILENUMX][index % TILENUMX].pixelImage = IMAGEMANAGER->findImage(str5);
+			}
+			
 			_tile[index / TILENUMX][index % TILENUMX].imagePos.x = imageNum % 3;
 			_tile[index / TILENUMX][index % TILENUMX].imagePos.y = imageNum / 3;
 		}
@@ -680,19 +680,19 @@ void maptool::pushObject(tagObject & obj)
 
 	_lObjList[obj.type].push_back(obj);
 
-	int tileX = obj.x / TILESIZE;
-	int tileY = obj.y / TILESIZE;
-	int width = obj.objImage->getWidth() / TILESIZE;
-	int height = obj.objImage->getHeight() / TILESIZE;
+	//int tileX = obj.x / TILESIZE;
+	//int tileY = obj.y / TILESIZE;
+	//int width = obj.objImage->getWidth() / TILESIZE;
+	//int height = obj.objImage->getHeight() / TILESIZE;
 
-	//오브젝트가 있는 타일의 상태를 변경
-	for (int i = tileX; i < tileX + width; ++i)
-	{
-		for (int j = tileY; j > tileY + height; ++j)
-		{
-			_tile[j][i].type = ONOBJECT;
-		}
-	}
+	////오브젝트가 있는 타일의 상태를 변경
+	//for (int i = tileX; i < tileX + width; ++i)
+	//{
+	//	for (int j = tileY; j > tileY + height; ++j)
+	//	{
+	//		_tile[j][i].type = ONOBJECT;
+	//	}
+	//}
 }
 
 void maptool::pushEnemy(tagEnemy & enemy)
@@ -701,17 +701,17 @@ void maptool::pushEnemy(tagEnemy & enemy)
 
 	_lEnemy[enemy.type].push_back(enemy);
 
-	int tileX = enemy.x / TILESIZE;
-	int tileY = enemy.y / TILESIZE;
-	int width = enemy.enemyImage->getFrameWidth() / TILESIZE;
-	int height = enemy.enemyImage->getFrameHeight() / TILESIZE;
+	//int tileX = enemy.x / TILESIZE;
+	//int tileY = enemy.y / TILESIZE;
+	//int width = enemy.enemyImage->getFrameWidth() / TILESIZE;
+	//int height = enemy.enemyImage->getFrameHeight() / TILESIZE;
 
-	//에너미가 있는 타일의 상태를 변경
-	for (int i = tileX; i < tileX + width; ++i)
-	{
-		for (int j = tileY; j > tileY + height; ++j)
-		{
-			_tile[j][i].type = ONENEMY;
-		}
-	}
+	////에너미가 있는 타일의 상태를 변경
+	//for (int i = tileX; i < tileX + width; ++i)
+	//{
+	//	for (int j = tileY; j > tileY + height; ++j)
+	//	{
+	//		_tile[j][i].type = ONENEMY;
+	//	}
+	//}
 }

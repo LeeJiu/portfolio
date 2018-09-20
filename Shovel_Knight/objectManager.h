@@ -1,13 +1,16 @@
 #pragma once
-#include "gameNode.h"
-#include "block.h"
-#include "ladder.h"
 
-class objectManager : public gameNode
+#include "block.h"
+#include "movingTile.h"
+#include "chest.h"
+
+class objectManager
 {
 private:
 	vector<objects*> _vObject;
 	vector<objects*>::iterator _viObject;
+
+	player* _player;
 
 public:
 	objectManager();

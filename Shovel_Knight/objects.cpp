@@ -27,3 +27,10 @@ void objects::update()
 void objects::render()
 {
 }
+
+void objects::setRect(float x, float y)
+{
+	_x = x;
+	_y = y;
+	_rc = RectMake(_x, _y, _image->getFrameWidth(), _image->getFrameHeight());
+}

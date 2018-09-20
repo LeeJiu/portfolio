@@ -34,13 +34,14 @@
 //타일 타입
 enum TILETYPE
 {
-	NONE, CRASHABLE, BREAKABLE, BACKGROUND, LADDER, ONOBJECT, ONENEMY
+	NONE, BREAK, BACKGROUND/*, ONOBJECT, ONENEMY*/
 };
 
 //타일 구조체
 struct tagTile
 {
 	image* tileImage;
+	image* pixelImage;
 	RECT rc;
 	POINT imagePos;	//이미지 좌표
 	int index;
@@ -80,6 +81,37 @@ struct tagEnemy
 	RECT rc;
 	int x, y;
 	ENEMYTYPE type;
+};
+
+//플레이어 상태
+enum PLAYERSTATE
+{
+	PS_IDLE, PS_WALK,
+	PS_JUMPUP, PS_JUMPDOWN,
+	PS_CLIMB, PS_CLIMBSTOP,
+	PS_DIG, PS_DIGDOWN,
+	PS_DAMAGE, PS_DEAD
+};
+
+//에너미 상태
+enum ENEMYSTATE
+{
+	ES_IDLE, ES_WALK, ES_ATTACK, ES_ATTACK2, ES_DEAD
+};
+
+//아이템 종류
+enum ITEMTYPE
+{
+	GEM1, GEM5, GEM10, GEM20, GEM35, GEM50, LIFE
+};
+
+//아이템 구조체
+struct tagItem
+{
+	image* image;
+	RECT rc;
+	float x, y, jumpPwr;
+	int num;
 };
 
 namespace MY_UTIL

@@ -43,6 +43,8 @@ HRESULT gameNode::init(bool managerInit)
 		DATABASE->init();
 		ACTIONMANAGER->init();
 		KEYANIMANAGER->init();
+
+		ITEMMANAGER->init();
 	}
 
 	return S_OK;
@@ -72,6 +74,9 @@ void gameNode::release()
 		ACTIONMANAGER->releaseSingleton();
 		KEYANIMANAGER->release();
 		KEYANIMANAGER->releaseSingleton();
+
+		ITEMMANAGER->release();
+		ITEMMANAGER->releaseSingleton();
 	}
 
 	//받아온 DC 해제 해주자

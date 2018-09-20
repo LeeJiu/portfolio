@@ -37,6 +37,7 @@
 #include "actionManager.h"
 #include "keyAnimationManager.h"
 #include "collision.h"
+#include "itemManager.h"
 
 using namespace MY_UTIL;
 
@@ -44,8 +45,8 @@ using namespace MY_UTIL;
 #define WINNAME (LPTSTR)(TEXT("Shovel Knight"))
 #define WINSTARTX 0
 #define WINSTARTY 0
-#define WINSIZEX 960
-#define WINSIZEY 640
+#define WINSIZEX 800
+#define WINSIZEY 480
 #define CENTERX (WINSIZEX / 2)
 #define CENTERY (WINSIZEY / 2)
 #define WINSTYLE WS_CAPTION | WS_SYSMENU
@@ -65,6 +66,8 @@ using namespace MY_UTIL;
 #define DATABASE database::getSingleton()
 #define ACTIONMANAGER actionManager::getSingleton()
 #define KEYANIMANAGER keyAnimationManager::getSingleton()
+
+#define ITEMMANAGER itemManager::getSingleton()
 
 /* ===== 전역 변수 ===== */
 extern POINT _ptMouse;
