@@ -76,6 +76,19 @@ HRESULT gameStudy::init()
 	EFFECTMANAGER->addEffect("sparkle3", "image/fx/sparkle3.bmp", 42, 14, 14, 14, 1, 0.2, 10);
 	EFFECTMANAGER->addEffect("wind", "image/fx/wind.bmp", 1435, 87, 205, 87, 1, 0.2, 10);
 
+	//sound
+	SOUNDMANAGER->addSound("bgm", "sound/StrikeTheEarth.mp3", true, true);
+	SOUNDMANAGER->addSound("campfire", "sound/TheStarlitWilds.mp3", true, true);
+	SOUNDMANAGER->addSound("clear", "sound/NoWeaponsHere.mp3", true, true);
+	SOUNDMANAGER->addSound("main", "sound/MainTheme.mp3", true, true);
+	SOUNDMANAGER->addSound("appear", "sound/sfx_appear.mp3", false, false);
+	SOUNDMANAGER->addSound("dig", "sound/sfx_dig.mp3", false, false);
+	SOUNDMANAGER->addSound("jump", "sound/sfx_jump.mp3", false, false);
+	SOUNDMANAGER->addSound("get", "sound/sfx_get.mp3", false, false);
+	SOUNDMANAGER->addSound("dead", "sound/sfx_dead.mp3", false, false);
+	SOUNDMANAGER->addSound("select", "sound/sfx_select.mp3", false, false);
+	SOUNDMANAGER->addSound("ok", "sound/sfx_ok.mp3", false, false);
+
 
 	SCENEMANAGER->addScene("title", new title);
 	SCENEMANAGER->addScene("maptool", new maptool);
@@ -100,6 +113,7 @@ void gameStudy::update()
 	if (KEYMANAGER->isOnceKeyDown('P'))
 		_isPixel = !_isPixel;
 
+	SOUNDMANAGER->update();
 	SCENEMANAGER->update();
 
 	gameNode::update();

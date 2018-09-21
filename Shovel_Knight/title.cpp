@@ -35,15 +35,24 @@ HRESULT title::init()
 
 	_btAlpha[0] = _btAlpha[1] = 255;
 
+	_start = false;
+
 	return S_OK;
 }
 
 void title::release()
 {
+	SOUNDMANAGER->stop("main");
 }
 
 void title::update()
 {
+	if (!_start)
+	{
+		SOUNDMANAGER->play("main", 0.7f);
+		_start = true;
+	}
+
 	setFrame();
 	keyControl();
 	moveCursor();
@@ -72,6 +81,8 @@ void title::keyControl()
 			_selectScene = 3;
 			_cursorY = CENTERY + 162;
 		}
+
+		SOUNDMANAGER->play("select", 1);
 	}
 
 	if (KEYMANAGER->isOnceKeyDown(VK_DOWN))
@@ -85,12 +96,15 @@ void title::keyControl()
 			_selectScene = 1;
 			_cursorY = CENTERY + 62;
 		}
+
+		SOUNDMANAGER->play("select", 1);
 	}
 
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 	{
 		if (!_select)
 		{
+			SOUNDMANAGER->play("ok", 1);
 			_select = true;
 		}
 	}

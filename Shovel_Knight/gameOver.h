@@ -8,6 +8,7 @@ private:
 	image* _fire;
 	image* _character;
 	int _count, _fireFrameX, _charFrameX;
+	bool _start;
 
 public:
 	gameOver();

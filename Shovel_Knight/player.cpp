@@ -84,12 +84,12 @@ void player::render()
 		_image->frameRender(getMemDC(), _rc.left, _rc.top, _curFrameX, _curFrameY);
 	}
 
-	char str[128];
+	/*char str[128];
 	sprintf_s(str, "gravity? %f", _gravity);
 	TextOut(getMemDC(), _sourX + 10, _sourY + 200, str, strlen(str));
 	
 	sprintf_s(str, "x, y? (%3f, %3f)", _x, _y);
-	TextOut(getMemDC(), _sourX + 10, _sourY + 250, str, strlen(str));
+	TextOut(getMemDC(), _sourX + 10, _sourY + 250, str, strlen(str));*/
 }
 
 void player::keyControl()
@@ -265,6 +265,8 @@ void player::keyControl()
 	{
 		if (_state == PS_IDLE || _state == PS_WALK)
 		{
+			SOUNDMANAGER->play("jump", 1);
+
 			_isColl = false;
 			_state = PS_JUMPUP;
 			_curFrameX = 0;
@@ -357,6 +359,8 @@ void player::attack()
 {
 	if (_state != PS_DIG && _state != PS_CLIMB)
 	{
+		SOUNDMANAGER->play("dig", 1);
+
 		_state = PS_DIG;
 		_curFrameX = 0;
 	}
@@ -697,7 +701,7 @@ void player::itemCollision()
 			{
 				_gold += ITEMMANAGER->getVItem()[i]->getGold();
 			}
-
+			SOUNDMANAGER->play("get", 1);
 			ITEMMANAGER->getVItem()[i]->setIsOn(false);
 			break;
 		}
@@ -764,6 +768,7 @@ void player::damage(int damage)
 	_life -= damage;
 	if (_life <= 0)
 	{
+		SOUNDMANAGER->play("dead", 1);
 		_life = 0;
 		_state = PS_DEAD;
 		_curFrameX = 0;

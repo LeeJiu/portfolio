@@ -38,6 +38,7 @@
 #include "keyAnimationManager.h"
 #include "collision.h"
 #include "itemManager.h"
+#include "soundManager.h"
 
 using namespace MY_UTIL;
 
@@ -66,8 +67,9 @@ using namespace MY_UTIL;
 #define DATABASE database::getSingleton()
 #define ACTIONMANAGER actionManager::getSingleton()
 #define KEYANIMANAGER keyAnimationManager::getSingleton()
-
+#define SOUNDMANAGER soundManager::getSingleton()
 #define ITEMMANAGER itemManager::getSingleton()
+
 
 /* ===== 전역 변수 ===== */
 extern POINT _ptMouse;

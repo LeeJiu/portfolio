@@ -47,7 +47,7 @@ void enemyManager::update()
 			else
 				continue;
 		}
-		if ((*_viEnemy)->getX() < _sourX || (*_viEnemy)->getX() > _sourX + WINSIZEX) continue;
+		if ((*_viEnemy)->getX() < _sourX || (*_viEnemy)->getX() > _sourX + WINSIZEX * 2) continue;
 		if ((*_viEnemy)->getY() < _sourY || (*_viEnemy)->getY() > _sourY + WINSIZEY) continue;
 
 		(*_viEnemy)->update();

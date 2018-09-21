@@ -17,15 +17,24 @@ HRESULT clear::init()
 
 	IMAGEMANAGER->addImage("clear", "image/background/clear.bmp", WINSIZEX, WINSIZEY, false, false);
 
+	_start = false;
+
 	return S_OK;
 }
 
 void clear::release()
 {
+	SOUNDMANAGER->stop("clear");
 }
 
 void clear::update()
 {
+	if (!_start)
+	{
+		SOUNDMANAGER->play("clear", 0.7f);
+		_start = true;
+	}
+
 	//스파클 이펙트 터트리자
 	_count++;
 	if (_count % 40 == 0)

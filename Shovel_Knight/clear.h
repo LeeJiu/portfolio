@@ -6,6 +6,7 @@ class clear : public gameNode
 {
 private:
 	int _count;
+	bool _start;
 	
 public:
 	clear();

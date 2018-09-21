@@ -101,9 +101,9 @@ void maptoolUI::render()
 		}
 	}
 
-	char str[128];
+	/*char str[128];
 	sprintf_s(str, "enemy type : %d", (int)_enemyType);
-	TextOut(getMemDC(), _sourX + 10, _sourY + 250, str, strlen(str));
+	TextOut(getMemDC(), _sourX + 10, _sourY + 250, str, strlen(str));*/
 }
 
 void maptoolUI::selectStageState()

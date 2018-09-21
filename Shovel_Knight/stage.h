@@ -17,6 +17,7 @@ private:
 	stateUI* _ui;
 
 	float _delayTime;
+	bool _start;
 
 public:
 	stage();

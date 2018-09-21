@@ -8,6 +8,7 @@ private:
 	image* _cursor;
 	int _cursorX, _cursorY, _cursorDist, _selectScene;
 	bool _select;
+	bool _start;
 
 	int _btAlpha[2];
 	int _count, _curFrameX;

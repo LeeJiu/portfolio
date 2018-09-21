@@ -21,16 +21,24 @@ HRESULT gameOver::init()
 	_fire = IMAGEMANAGER->addFrameImage("campfire", "image/background/campfire.bmp", 3780, 154, 21, 1, true, 0xff00ff);
 	_character = IMAGEMANAGER->addFrameImage("shovel_camp", "image/player/shovel_camp.bmp", 156, 54, 3, 1, true, 0xff00ff);
 
+	_start = false;
 
 	return S_OK;
 }
 
 void gameOver::release()
 {
+	SOUNDMANAGER->stop("campfire");
 }
 
 void gameOver::update()
 {
+	if (!_start)
+	{
+		SOUNDMANAGER->play("campfire", 0.7f);
+		_start = true;
+	}
+
 	_count++;
 
 	if (_count % 15 == 0)

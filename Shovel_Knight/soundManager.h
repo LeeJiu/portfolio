@@ -37,35 +37,35 @@ private:
 
 
 public:
-	HRESULT init( void );
-	void release( void );
+	HRESULT init(void);
+	void release(void);
 
 	//사운드 추가
-	void addSound( string keyName, string soundName, bool background = false, bool loop = false );
+	void addSound(string keyName, string soundName, bool background = false, bool loop = false);
 
 	//재생
-	void play( string keyName, float volume );
+	void play(string keyName, float volume);
 
 	//종료
-	void stop( string keyName );
+	void stop(string keyName);
 
 	//정지
-	void pause( string keyName );
+	void pause(string keyName);
 
 	//다시 재생
-	void resume( string keyName );
+	void resume(string keyName);
 
 	//멈춰있니?
-	bool isPauseSound( string keyName );
+	bool isPauseSound(string keyName);
 
 	//재생중이니?
-	bool isPlaySound( string keyName );
+	bool isPlaySound(string keyName);
 
 	//Fmod 시스템을 갱신
-	void update( void );
+	void update(void);
 
 	//몇 분 짜리냐?
-	unsigned int getLength( string keyName );
+	unsigned int getLength(string keyName);
 
 
 	soundManager();

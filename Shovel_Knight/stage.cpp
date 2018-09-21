@@ -43,11 +43,15 @@ HRESULT stage::init(int stageNum)
 
 	_map->setObjMemoryLink(_objMgr);
 
+	_start = false;
+
 	return S_OK;
 }
 
 void stage::release()
 {
+	SOUNDMANAGER->stop("bgm");
+
 	_map->release();
 	_objMgr->release();
 	_enemyMgr->release();
@@ -62,6 +66,12 @@ void stage::release()
 
 void stage::update()
 {
+	if (!_start)
+	{
+		SOUNDMANAGER->play("bgm", 0.5f);
+		_start = true;
+	}
+
 	_player->update();
 	_enemyMgr->update();
 
